@@ -55,7 +55,7 @@
                         <span *ngIf="action.questionStage.stagetype != 'multiquestion' && action.answer">
                         
                         <h4 *ngIf="action.questionStage.title && action.questionStage.title != ''">{{action.questionStage.title}}</h4>
-                        <div *ngIf="action.questionStage.includeartworks.length" class="mb-3">
+                        <!-- <div *ngIf="action.questionStage.includeartworks.length" class="mb-3">
                             <div *ngFor="let artwork of action.questionStage.includeartworks">
                                 <div *ngFor="let artwork of getArtworkFromId(artwork);">
                                     <em>
@@ -68,7 +68,7 @@
                                 </div>
                             </div>
                         </div>
-                        <em *ngIf="action.questionStage.help && action.questionStage.help != ''"><p style="white-space: pre-wrap;" [innerHTML]="action.questionStage.help"></p></em>
+                        <em *ngIf="action.questionStage.help && action.questionStage.help != ''"><p style="white-space: pre-wrap;" [innerHTML]="action.questionStage.help"></p></em> -->
 
                             <span style="font-weight: bold; white-space: pre-wrap;" [innerHTML]="action.question | linkify"></span>
                             <span *ngIf="activity._id==editContribution">
@@ -79,7 +79,7 @@
                         <span *ngIf="action.questionStage.stagetype == 'multiquestion' && action.answers && answersContainsAnswer(action.answers)">
 
                             <h4 *ngIf="action.questionStage.title && action.questionStage.title != ''">{{action.questionStage.title}}</h4>
-                            <div *ngIf="action.questionStage.includeartworks.length" class="mb-3">
+                            <!-- <div *ngIf="action.questionStage.includeartworks.length" class="mb-3">
                                 <div *ngFor="let artwork of action.questionStage.includeartworks">
                                     <div *ngFor="let artwork of getArtworkFromId(artwork);">
                                         <em>
@@ -92,7 +92,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <em *ngIf="action.questionStage.help && action.questionStage.help != ''"><p style="white-space: pre-wrap;" [innerHTML]="action.questionStage.help"></p></em>
+                            <em *ngIf="action.questionStage.help && action.questionStage.help != ''"><p style="white-space: pre-wrap;" [innerHTML]="action.questionStage.help"></p></em> -->
 
                             <span *ngFor="let answer of sortAnswers(action.answers)">
                                 <ng-container *ngIf="answer.answer">
@@ -125,7 +125,7 @@
                         <span *ngIf="action.storyStage.stagetype == 'story' && action.answer">
 
                             <h4 *ngIf="action.storyStage.title && action.storyStage.title != ''">{{action.storyStage.title}}</h4>
-                            <div *ngIf="action.storyStage.includeartworks.length" class="mb-3">
+                            <!-- <div *ngIf="action.storyStage.includeartworks.length" class="mb-3">
                                 <div *ngFor="let artwork of action.storyStage.includeartworks">
                                     <div *ngFor="let artwork of getArtworkFromId(artwork);">
                                         <em>
@@ -137,7 +137,7 @@
                                         </em>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
 
                             <span style="font-weight: bold; white-space: pre-wrap;" [innerHTML]="action.question | linkify"></span>
                             <span *ngIf="activity._id==editContribution">
