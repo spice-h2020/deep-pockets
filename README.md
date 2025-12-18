@@ -1,8 +1,8 @@
-# Edinburgh 900 Viewpoints
+# Deep Pockets
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.1.2.
 
-## Configuring Edinburgh 900 Viewpoints to work with the SPICE Linked Data Hub
+## Configuring Deep Pockets to work with the SPICE Linked Data Hub
 
 Copy the file `src/app/config.example.ts` to `src/app/config.ts`
 

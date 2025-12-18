@@ -8,7 +8,7 @@ import { CollectionArtwork } from "./collectionArtwork.model";
 
 @Component({
     selector: "paCollectionArtworkTable",
-    templateUrl: "collectionArtworkTable.html"
+    templateUrl: "collectionArtworkTable.component.html"
 })
 
 export class CollectionArtworkTableComponent {
