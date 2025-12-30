@@ -1,5 +1,5 @@
 import { CdkDragDrop, moveItemInArray } from "@angular/cdk/drag-drop";
-import { Component } from "@angular/core";
+import { Component, inject } from "@angular/core";
 import { Artwork } from "./artwork.model";
 import { CurrentUser } from "./currentUser.service";
 import { Model } from "./repository.model";
@@ -11,6 +11,7 @@ import { Exhibition } from "./exhibition.model";
 import { ConfigSettings } from "./config";
 import { Question } from "./question.model";
 import { findIndex } from "rxjs/operators";
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
     selector: "paScriptWizard",
@@ -23,7 +24,46 @@ export class ScriptWizardComponent {
         (event.target as HTMLImageElement).src = 'assets/img/488199.png';
     }
 
-    constructor(public currentuser: CurrentUser, public model: Model){}
+    private translate = inject(TranslateService);
+
+    // stage type translation
+    statement_stage_translation = '';
+    question_stage_translation = '';
+    multiquestion_stage_translation = '';
+    story_stage_translation = '';
+    statement_stage_added_translation = '';
+    question_stage_added_translation = '';
+    multiquestion_stage_addded_translation = '';
+    story_stage_added_translation = '';
+
+    constructor(public currentuser: CurrentUser, public model: Model){
+        this.translate.stream(['activities.button.statement', 'activities.button.question', 'activities.button.multiquestion', 'activities.button.story', 'activities.advice.new_statement_added', 'activities.advice.new_question_stage_added', 'activities.advice.new_multiquestion_stage_added', 'activities.advice.new_story_stage_added']).subscribe(translations => {
+        this.statement_stage_translation = translations['activities.button.statement'];
+        this.question_stage_translation = translations['activities.button.question'];
+        this.multiquestion_stage_translation = translations['activities.button.multiquestion'];
+        this.story_stage_translation = translations['activities.button.story'];
+        this.statement_stage_added_translation = translations['activities.advice.new_statement_added'];
+        this.question_stage_added_translation = translations['activities.advice.new_question_stage_added'];
+        this.multiquestion_stage_addded_translation = translations['activities.advice.new_multiquestion_stage_added'];
+        this.story_stage_added_translation= translations['activities.advice.new_story_stage_added'];
+        })
+    }
+
+    translate_stage_type(stage_type: string) {
+        if(stage_type == "statement") {
+            return this.statement_stage_translation;
+        }
+        if(stage_type == "question") {
+            return this.question_stage_translation;
+        }
+        if(stage_type == "multiquestion") {
+            return this.multiquestion_stage_translation;
+        }
+        if(stage_type == "story") {
+            return this.story_stage_translation;
+        }
+        return stage_type;
+    }
 
     artistStartList: {text: string}[];
     artworkStartList: {text: string}[]
@@ -225,7 +265,7 @@ export class ScriptWizardComponent {
 
     addScript() {
         let newscript = new Script();
-        newscript.name = "Untitled activity";
+        newscript.name = "Untitled activity / Gweithgaredd di-deitl";
         newscript.open = true;
         newscript.visible = false;
         newscript.archived = false;
@@ -487,7 +527,7 @@ export class ScriptWizardComponent {
         this.model.addStageToScript(script, stage);
         //set vars
         this.model.viewScript = script._id;
-        this.newStageMessageText = "New statement stage added to the end of your activity";
+        this.newStageMessageText = this.statement_stage_added_translation;
         this.newStageMessage = true;
         // this.editScriptStage = stage.id;
     }
@@ -497,7 +537,7 @@ export class ScriptWizardComponent {
         this.model.addStageToScript(script, stage);
         //set vars
         this.model.viewScript = script._id;
-        this.newStageMessageText = "New question stage added to the end of your activity";
+        this.newStageMessageText = this.question_stage_added_translation;
         this.newStageMessage = true;
         // this.editScriptStage = stage.id;
     }
@@ -507,7 +547,7 @@ export class ScriptWizardComponent {
         this.model.addStageToScript(script, stage);
         //set vars
         this.model.viewScript = script._id;
-        this.newStageMessageText = "New story stage added to the end of your activity";
+        this.newStageMessageText = this.story_stage_added_translation;
         this.newStageMessage = true;
         // this.editScriptStage = stage.id;
     }
@@ -517,7 +557,7 @@ export class ScriptWizardComponent {
         this.model.addStageToScript(script, stage);
         //set vars
         this.model.viewScript = script._id;
-        this.newStageMessageText = "New multiquestion stage added to the end of your activity";
+        this.newStageMessageText = this.multiquestion_stage_addded_translation;
         this.newStageMessage = true;
         //this.editScriptStage = stage.id;
     }
@@ -688,7 +728,7 @@ export class ScriptWizardComponent {
     checkMultiquestionOptions(script: Script, stageNumber: number, questionNumber: number) {
         if(script.stages[stageNumber] as multiquestionStage) {
             if((script.stages[stageNumber] as multiquestionStage).questions[questionNumber].options.length < 2) {
-                (script.stages[stageNumber] as multiquestionStage).questions[questionNumber].options = ["Option 1", "Option 2"];
+                (script.stages[stageNumber] as multiquestionStage).questions[questionNumber].options = ["Option / Opsiwn 1", "Option / Opsiwn 2"];
                 this.saveScript(script);
             }
         }
@@ -697,7 +737,7 @@ export class ScriptWizardComponent {
     checkQuestionOptions(script: Script, stageNumber: number) {
         if(script.stages[stageNumber] as questionStage) {
             if((script.stages[stageNumber] as questionStage).question.options.length < 2) {
-                (script.stages[stageNumber] as questionStage).question.options = ["Option 1", "Option 2"];
+                (script.stages[stageNumber] as questionStage).question.options = ["Option / Opsiwn 1", "Option / Opsiwn 2"];
                 this.saveScript(script);
             }
         }

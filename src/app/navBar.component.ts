@@ -4,6 +4,8 @@ import { CurrentUser } from "./currentUser.service";
 import { Model } from "./repository.model";
 import { User } from "./user.model";
 import { ActivatedRoute } from "@angular/router";
+import { inject } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Component({
@@ -45,7 +47,21 @@ export class NavBarComponent implements OnInit {
             }
         );
      }
-    
+
+    private translate = inject(TranslateService);
+
+    chosenlang = this.translate.currentLang;
+
+    limited_menu: string = '';
+
+    translateLimitedMenu() {
+        this.limited_menu = this.translate.instant('themes.copy_limited_menu');
+    }
+
+    useLanguage(language: string): void {
+        this.translate.use(language);
+    }
+
     foo() {
         console.log(this.themeNav);
         console.log(this.activityNav);

@@ -9,7 +9,9 @@ import { ScriptAuthoringComponent } from './scriptAuthoring.component';
 import { HomepageComponent } from './homepage.component';
 import { SlowLookingActivityComponent } from './slowLookingActivity.component';
 import { AppRoutingModule } from './app-routing.module';
-import { HttpClientModule } from '@angular/common/http';
+import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import {HttpClient, HttpClientModule} from '@angular/common/http';
 import { ModelModule } from './model.module';
 import { ArtworkTableComponent } from './artworkTable.component';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
@@ -93,7 +95,16 @@ import { ThemeLandingPageComponent } from './themeLandingPage.component';
     LinkifyPipeModule,
     LinkiftHtmlPipeModule,
     GalleryModule,
-    LightboxModule
+    LightboxModule,
+    // ngx-translate and the loader module
+      HttpClientModule,
+      TranslateModule.forRoot({
+          loader: {
+              provide: TranslateLoader,
+              useFactory: HttpLoaderFactory,
+              deps: [HttpClient]
+          }
+      })
   ],
   providers: [CurrentUser, LinkText,     
     {
@@ -117,3 +128,8 @@ import { ThemeLandingPageComponent } from './themeLandingPage.component';
   bootstrap: [SlowLookingComponent]
 })
 export class AppModule { }
+
+// required for AOT compilation
+export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
+    return new TranslateHttpLoader(http);
+}

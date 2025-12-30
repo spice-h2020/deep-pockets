@@ -1,16 +1,16 @@
 <paNavBar></paNavBar>
 <div style="width: 100%; background-color: white;" class="border pl-3 pr-3">
-<p class="lead">{{configSettings.artworks_para1}}</p>
+<p class="lead">{{ 'artworks.para' | translate }}</p>
 <div *ngIf="isLoggedIn()" class="form-group">
 
     <ul ngbNav #nav="ngbNav" class="nav-pills">
         <li ngbNavItem>
-            <a ngbNavLink (click)="recaluateNameListsArchive(); ; artworkAddedAlert=''"><strong>My artworks</strong></a>
+            <a ngbNavLink (click)="recaluateNameListsArchive(); ; artworkAddedAlert=''"><strong>{{ 'artworks.tab.my_artworks' | translate }}</strong></a>
             <ng-template ngbNavContent>
                 <div class="row pt-2">
                     <div class=" col-12">
                         <input type="text" class="form-control" id="collection-search-text" aria-describedby="collection-search-text" 
-                        [(ngModel)]="searchCollectionText" placeholder="Search my artworks" (change)="recaluateNameLists()">
+                        [(ngModel)]="searchCollectionText" placeholder="{{ 'artworks.search_my' | translate }}" (change)="recaluateNameLists()">
                     </div>
                 </div>
                 <div class="row itemsBlock pt-2">
@@ -19,7 +19,7 @@
                             <ng-autocomplete
                             [data]="artistStartList"
                             [searchKeyword]="keywordArtist"
-                            placeholder="Artist"
+                            placeholder="{{ 'artworks.artist' | translate }}"
                             [(ngModel)]="artistField"
                             (selected)="selectEventArtist($event)"
                             (inputCleared)="inputClearedArtist($event)"
@@ -44,7 +44,7 @@
                             <ng-autocomplete
                             [data]="artworkStartList"
                             [searchKeyword]="keywordArtwork"
-                            placeholder="Artwork"
+                            placeholder="{{ 'artworks.artwork' | translate }}"
                             [(ngModel)]="artworkField"
                             (selected)="selectEventArtwork($event)"
                             (inputCleared)="inputClearedArtwork($event)"
@@ -69,7 +69,7 @@
                             <ng-autocomplete
                             [data]="yearStartList"
                             [searchKeyword]="keywordYear"
-                            placeholder="Year"
+                            placeholder="{{ 'artworks.year' | translate }}"
                             [(ngModel)]="yearField"
                             (selected)="selectEventYear($event)"
                             (inputCleared)="inputClearedYear($event)"
@@ -90,8 +90,8 @@
                         </div>
                     </div>
                 </div>
-                <span *ngIf="filteredResults().length <= searchCollectionDisplayLimit" class="fs-6">{{filteredResults().length}} items shown</span>
-                <span *ngIf="filteredResults().length > searchCollectionDisplayLimit" class="fs-6">{{searchCollectionDisplayLimit}} of {{filteredResults().length}} items shown</span>
+                <span *ngIf="filteredResults().length <= searchCollectionDisplayLimit" class="fs-6">{{filteredResults().length}} {{ 'artworks.items_shown' | translate }}</span>
+                <span *ngIf="filteredResults().length > searchCollectionDisplayLimit" class="fs-6">{{searchCollectionDisplayLimit}} {{ 'artworks.of' | translate }} {{filteredResults().length}} {{ 'artworks.items_shown' | translate }}</span>
                 <div class="row itemsBlock pt-2">
                     <div *ngFor="let item of filteredResults() | slice:0:searchCollectionDisplayLimit; let i = index" class="col-md-4 col-sm-6 col-12 pb-3">
                         <div class="row pb-3">
@@ -106,13 +106,13 @@
                                 </div>
                             </div>
                             <div class="col-12" *ngIf="deleteConfirmation_Id!=item._id">
-                                <button class="float-right btn btn-danger"  (click)="confirmDelete(item._id)">Delete</button>
+                                <button class="float-right btn btn-danger"  (click)="confirmDelete(item._id)">{{ 'artworks.button.delete' | translate }}</button>
                             </div>
                     
                             <span *ngIf="deleteConfirmation_Id==item._id">
-                                <div class="alert alert-danger" role="alert"><strong>Are you sure you want to delete this artwork from your collection?</strong>
+                                <div class="alert alert-danger" role="alert"><strong>{{ 'artworks.are_you_sure' | translate }}</strong>
                                 <span *ngIf="getScriptsOfAnArtwork(item._id).length > 0">
-                                    <p><strong>It will be removed from the following activities:</strong></p>
+                                    <p><strong>{{ 'artworks.it_will_be' | translate }}</strong></p>
                                 </span>
                                 <ul *ngIf="getScriptsOfAnArtwork(item._id).length > 0">
                                     <li *ngFor="let artworkscript of getScriptsOfAnArtwork(item._id);">{{artworkscript.name}}</li>
@@ -121,24 +121,24 @@
                                     <li>{{artworkscript.name}}</li>
                                 </ul> -->
                                 <div class="text-end">
-                                    <button class="btn btn-secondary" (click)="deleteConfirmation_Id=''">Cancel</button><button class="btn btn-danger ml-2" (click)="deleteArtwork(item._id)">OK</button></div>
+                                    <button class="btn btn-secondary" (click)="deleteConfirmation_Id=''">{{ 'artworks.button.cancel' | translate }}</button><button class="btn btn-danger ml-2" (click)="deleteArtwork(item._id)">{{ 'artworks.button.ok' | translate }}</button></div>
                                 </div>
                             </span>
                         </div>
                     </div>
                 </div>
                 <div class="row pr-3 pl-3 pb-3" *ngIf="filteredResults().length > searchCollectionDisplayLimit">
-                    <button class="btn btn-secondary" (click)="searchCollectionDisplayLimit = searchCollectionDisplayLimit+6">More results</button>
+                    <button class="btn btn-secondary" (click)="searchCollectionDisplayLimit = searchCollectionDisplayLimit+6">{{ 'artworks.button.more_results' | translate }}</button>
                 </div>
             </ng-template>
         </li>
         <li ngbNavItem>
-            <a ngbNavLink (click)="recaluateNameListsArchive(); artworkAddedAlert=''"><strong>Whole collection</strong></a>
+            <a ngbNavLink (click)="recaluateNameListsArchive(); artworkAddedAlert=''"><strong>{{ 'artworks.tab.whole_collection' | translate }}</strong></a>
             <ng-template ngbNavContent>
                 <div class="row mt-2">
                     <div class=" col-12">
                         <input type="email" class="form-control" id="search-text" aria-describedby="search-text" 
-                        [(ngModel)]="searchText" placeholder="Search whole collection">
+                        [(ngModel)]="searchText" placeholder="{{ 'artworks.search_whole' | translate }}">
                     </div>
                 </div>
                 <div class="row itemsBlock pt-2">
@@ -147,7 +147,7 @@
                             <ng-autocomplete
                             [data]="artistStartListArchive"
                             [searchKeyword]="keywordArtistArchive"
-                            placeholder="Artist"
+                            placeholder="{{ 'artworks.artist' | translate }}"
                             [(ngModel)]="artistArchiveField"
                             (selected)="selectEventArtistArchive($event)"
                             (inputCleared)="inputClearedArtistArchive($event)"
@@ -172,7 +172,7 @@
                             <ng-autocomplete
                             [data]="artworkStartListArchive"
                             [searchKeyword]="keywordArtworkArchive"
-                            placeholder="Artwork"
+                            placeholder="{{ 'artworks.artwork' | translate }}"
                             [(ngModel)]="artworkArchiveField"
                             (selected)="selectEventArtworkArchive($event)"
                             (inputCleared)="inputClearedArtworkArchive($event)"
@@ -197,7 +197,7 @@
                             <ng-autocomplete
                             [data]="yearStartListArchive"
                             [searchKeyword]="keywordYearArchive"
-                            placeholder="Year"
+                            placeholder="{{ 'artworks.year' | translate }}"
                             [(ngModel)]="yearArchiveField"
                             (selected)="selectEventYearArchive($event)"
                             (inputCleared)="inputClearedYearArchive($event)"
@@ -219,8 +219,8 @@
                     </div>
                 </div>
                 <div *ngIf="!getCollection().length">Loading archive...</div>
-                <span *ngIf="filteredResultsArchive().length <= searchDisplayLimit" class="fs-6">{{filteredResultsArchive().length}} items shown</span>
-                <span *ngIf="filteredResultsArchive().length > searchDisplayLimit" class="fs-6">{{searchDisplayLimit}} of {{filteredResultsArchive().length}} items shown</span>
+                <span *ngIf="filteredResultsArchive().length <= searchDisplayLimit" class="fs-6">{{filteredResultsArchive().length}} {{ 'artworks.items_shown' | translate }}</span>
+                <span *ngIf="filteredResultsArchive().length > searchDisplayLimit" class="fs-6">{{searchDisplayLimit}} {{ 'artworks.of' | translate }} {{filteredResultsArchive().length}} {{ 'artworks.items_shown' | translate }}</span>
 
                 <div class="row itemsBlock pt-2">
                     <div *ngFor="let item of filteredResultsArchive() | slice:0:searchDisplayLimit ; let i = index" class="col-md-4 col-sm-6 col-12 pb-3">
@@ -237,16 +237,16 @@
                             </div>
                             <div class="col-12">
                                 <div *ngIf="artworkAddedAlert==item.filelocation" class="col-12 alert alert-success" role="alert">
-                                    Artwork added to your collection
+                                    {{ 'artworks.artwork_added' | translate }}
                                 </div>
-                                <button class="float-right btn btn-success" [disabled]="artworkAlreadyAdded(item.filelocation)" (click)="artworkAddedAlert=item.filelocation; saveArtworkFromParameters(item.name, item.artist, item.year , item.filelocation)" data-bs-toggle="modal" data-bs-target="#archiveModal">Add</button>
+                                <button class="float-right btn btn-success" [disabled]="artworkAlreadyAdded(item.filelocation)" (click)="artworkAddedAlert=item.filelocation; saveArtworkFromParameters(item.name, item.artist, item.year , item.filelocation)" data-bs-toggle="modal" data-bs-target="#archiveModal">{{ 'artworks.button.add' | translate }}</button>
                             </div>
                         </div>
                     </div>
                 </div>
                 
                 <div class="row pr-3 pl-3 pb-3" *ngIf="filteredResultsArchive().length > searchDisplayLimit">
-                    <button class="btn btn-secondary" (click)="searchDisplayLimit = searchDisplayLimit+6">More results</button>
+                    <button class="btn btn-secondary" (click)="searchDisplayLimit = searchDisplayLimit+6">{{ 'artworks.button.more_results' | translate }}</button>
                 </div>
             </ng-template>
         </li>

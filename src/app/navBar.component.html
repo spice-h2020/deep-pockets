@@ -1,9 +1,16 @@
-<nav class="navbar  navbar-dark bg-dark">
-  <div class="container-fluid">
-      <a *ngIf="!(themeNav || activityNav)" class="navbar-brand" routerLink="/home">{{configSettings.navbar_text}}</a>
-      <a *ngIf="themeNav" class="navbar-brand" [routerLink]="['/','themeLanding',themeNav]" [queryParams]="{themenav:themeNav}">{{configSettings.navbar_text}}</a>
-      <a *ngIf="activityNav" class="navbar-brand" [routerLink]="['/','landing',activityNav]" [queryParams]="{activitynav:activityNav}">{{configSettings.navbar_text}}</a>
-      <a *ngFor="let language of configSettings.translations" class="navbar-nav" [routerLink]="language.route">{{language.code}}</a>
+<nav class="navbar navbar-dark bg-dark b-0 m-0">
+  <div class= "b-0 m-0" style="width: 100%;">
+      <div class="row b-0 m-0" style="width:100%">
+        <div class="col-6 b-0 m-0">
+          <a *ngIf="!(themeNav || activityNav)" class="navbar-brand" routerLink="/home">{{ 'deep_pockets' | translate }}</a>
+          <a *ngIf="themeNav" class="navbar-brand" [routerLink]="['/','themeLanding',themeNav]" [queryParams]="{themenav:themeNav}">{{configSettings.navbar_text}}</a>
+          <a *ngIf="activityNav" class="navbar-brand" [routerLink]="['/','landing',activityNav]" [queryParams]="{activitynav:activityNav}">{{configSettings.navbar_text}}</a>
+        </div>
+        <div class="col-6 text-right">
+          <span style="color: white;" class="small"><a style="cursor: pointer;" (click)="useLanguage('en');">English</a>&nbsp;<a style="cursor: pointer;" (click)="useLanguage('cy')">Cymraeg</a></span>&nbsp;
+ 
+          
+          
 
       <ng-container *ngIf="themeNav">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -38,7 +45,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto">
               <li class="nav-item">
-                  <a class="nav-link" routerLink="/home" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">Home</a>
+                  <a class="nav-link" routerLink="/home" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">{{ 'menu.home' | translate }}</a>
               </li>
               <!-- <li class="nav-item">
                 <a class="nav-link" routerLink="/gallery" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">All scripts</a>
@@ -47,16 +54,16 @@
                   <a class="nav-link" routerLink="/otherPeople" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">All responses</a>
               </li> -->
               <li *ngIf="!isLoggedOut()" class="nav-item">
-                <a class="nav-link" routerLink="/wizard" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">My activities</a>
+                <a class="nav-link" routerLink="/wizard" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">{{ 'menu.my_activities' | translate }}</a>
               </li>
               <li *ngIf="!isLoggedOut()" class="nav-item">
                 <a class="nav-link" routerLink="/artworks" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">{{configSettings.navbar_menu5}}</a>
               </li>
               <li *ngIf="!isLoggedOut()" class="nav-item">
-                <a class="nav-link" routerLink="/themes" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">Themes</a>
+                <a class="nav-link" routerLink="/themes" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">{{ 'menu.themes' | translate }}</a>
               </li>
               <li *ngIf="!isLoggedOut()" class="nav-item">
-                <a class="nav-link" routerLink="/management" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">Management</a>
+                <a class="nav-link" routerLink="/management" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">{{ 'menu.management' | translate }}</a>
               </li>
               <!-- <li *ngIf="!isLoggedOut()" class="nav-item">
                 <a class="nav-link" routerLink="/selector" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">Scriptsets</a>
@@ -65,16 +72,16 @@
                 <a class="nav-link" routerLink="/authoring" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">Advanced</a>
               </li> -->
               <li *ngIf="isAdmin()" class="nav-item">
-                <a class="nav-link" routerLink="/collection" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">Collection</a>
+                <a class="nav-link" routerLink="/collection" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">{{ 'menu.collection' | translate }}</a>
               </li>
               <li *ngIf="isAdmin()" class="nav-item">
-                <a class="nav-link" routerLink="/users" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">Users</a>
+                <a class="nav-link" routerLink="/users" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">{{ 'menu.users' | translate }}</a>
               </li>
               <!-- <li *ngIf="isAdmin()" class="nav-item">
                 <a class="nav-link" routerLink="/exhibitions" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">Exhibitions</a>
               </li> -->
               <li *ngIf="isLoggedOut()" class="nav-item">
-                <a class="nav-link" routerLink="/login" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">Login</a>
+                <a class="nav-link" routerLink="/login" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">{{ 'menu.login' | translate }}</a>
                 </li>
               <li *ngIf="!isLoggedOut()" class="nav-item">
                 <a class="nav-link" routerLink="/login" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">{{getCurrentUsername()}}</a>
@@ -82,6 +89,14 @@
           </ul>
         </div>
       </ng-container>
+
+        </div>
+      </div>
+
+      <!-- <a *ngFor="let language of configSettings.translations" class="navbar-nav" [routerLink]="language.route">{{language.code}}</a> -->
+      <!-- <a class="navbar-brand float-right" style="font-size: small;">Cymraeg</a> -->
+      
+
    
     </div>
   </nav>

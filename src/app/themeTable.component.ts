@@ -1,10 +1,11 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, inject } from "@angular/core";
 import { Theme } from "./theme.model";
 import { Model } from "./repository.model";
 import { CurrentUser } from "./currentUser.service";
 import { User } from "./user.model";
 import { CdkDragDrop } from "@angular/cdk/drag-drop";
 import { ConfigSettings } from "./config";
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
     selector: "paThemeTable",
@@ -13,7 +14,17 @@ import { ConfigSettings } from "./config";
 
 export class ThemeTableComponent {
 
-    constructor(public currentuser: CurrentUser, private model: Model){}
+    limited_menu_text: string;
+    full_menu_text: string;
+
+    private translate = inject(TranslateService);
+
+    constructor(public currentuser: CurrentUser, private model: Model){ 
+        this.translate.stream(['themes.copy_full_menu', 'themes.copy_limited_menu']).subscribe(translations => {
+        this.limited_menu_text = translations['themes.copy_limited_menu'];
+        this.full_menu_text = translations['themes.copy_full_menu'];
+        })
+    }
 
     getUsers(): User[] {
         return this.model.getUsers();
@@ -54,10 +65,10 @@ export class ThemeTableComponent {
 
     landingButtonText() {
         if(this.includeNavigation) {
-            return "Copy landing page URL with full menu"
+            return this.limited_menu_text; //"Copy landing page URL with full menu"
         }
         else {
-            return "Copy landing page URL with limited menu";
+            return this.full_menu_text;  //"Copy landing page URL with limited menu";
         }
     }
 

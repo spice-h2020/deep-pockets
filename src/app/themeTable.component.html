@@ -1,16 +1,16 @@
 <paNavBar></paNavBar>
 <div style="width: 100%; background-color: white;" class="border pl-3 pr-3">
-<p class="lead">Below are the themes which you can link to your activities. Using existing themes allows your activities to be displayed with other activities of that theme. If none of the themes match your activity, you can add further themes. Other activity authors will be able to link their activities to your theme.</p>
+<p class="lead">{{ 'themes.para' | translate }}</p>
 <div *ngIf="isLoggedIn()" class="form-group">
 <div class="row">
     <div class="col-12 text-end">
         <input class="form-check-input" type="checkbox" [checked]="includeNavigation" [(ngModel)]="includeNavigation">
-        <span class="fs-6">&nbsp;Include full menu in landing page URLs</span>
+        <span class="fs-6">&nbsp;{{ 'themes.include_full_menu' | translate }}</span>
     </div>
 </div>
 <table class="table table-sm"> 
     <!-- <thead class="thead-dark"><tr><th></th><th>Theme</th><th>Description</th><th></th><th></th></tr></thead> -->
-    <thead><tr><th style="border-top: 0px;">Position</th><th style="border-top: 0px;">Theme</tr></thead>
+    <thead><tr><th style="border-top: 0px;">{{ 'themes.position' | translate }}</th><th style="border-top: 0px;">{{ 'themes.theme' | translate }}</tr></thead>
     <tbody cdkDropList (cdkDropListDropped)="drop($event)"> 
         <tr *ngFor="let item of getThemes(); let i = index" cdkDrag cdkDragLockAxis="y"> 
             <td class="col-xs">
@@ -36,7 +36,7 @@
                     <h4>{{item.name}}</h4>
                 </span>
                 <span *ngIf="tableEditing && editrow==item._id">
-                    <strong><span>Theme title:</span></strong><br/>
+                    <strong><span>{{ 'themes.theme_title' | translate }}:</span></strong><br/>
                     <textarea rows="2" class="form-control" [(ngModel)]="item.name"></textarea>
                 </span>
             <!-- </td>
@@ -45,31 +45,31 @@
                     <p>{{item.description}}</p>
                     <span *ngIf="deleteConfirmation_Id==item._id">
                         <br/>
-                        <div class="alert alert-danger" role="alert"><strong>Are you sure you want to delete this theme?</strong> <div><button class="btn btn-danger ml-2" (click)="deleteTheme(item._id); deleteConfirmation_Id=''">OK</button> <button class="btn btn-secondary ml-2" (click)="deleteConfirmation_Id=''">Cancel</button></div></div>
+                        <div class="alert alert-danger" role="alert"><strong>{{ 'themes.are_you_sure' | translate }}</strong> <div><button class="btn btn-danger ml-2" (click)="deleteTheme(item._id); deleteConfirmation_Id=''">{{ 'themes.button.ok' | translate }}</button> <button class="btn btn-secondary ml-2" (click)="deleteConfirmation_Id=''">{{ 'themes.button.cancel' | translate }}</button></div></div>
                         <br/>
                     </span>
                 </span>
                 <span *ngIf="tableEditing && editrow==item._id">
-                    <strong><span>Theme description:</span></strong><br/>
+                    <strong><span>{{ 'themes.theme_description' | translate }}:</span></strong><br/>
                     <textarea rows="3" class="form-control" [(ngModel)]="item.description"></textarea>
                 </span>
             <!-- </td> 
             <td class="col-xs"> -->
             <div class="row">
                 <div class="col-sm-8">
-                    <div *ngIf="!tableEditing" class="mb-2">
-                        <button class="btn btn-light" ngbPopover="{{landingURL(item)}}" popoverTitle="URL copied to clipboard" ngxClipboard [cbContent]='landingURL(item)'>{{landingButtonText()}} <i class="fa fa-clone" aria-hidden="true"></i></button>
+                    <div *ngIf="!tableEditing && deleteConfirmation_Id==''" class="mb-2">
+                        <button class="btn btn-light" ngbPopover="{{landingURL(item)}}" popoverTitle="{{ 'themes.url_copied' | translate }}" ngxClipboard [cbContent]='landingURL(item)'>{{landingButtonText()}} <i class="fa fa-clone" aria-hidden="true"></i></button>
                     </div>
                 </div>
                 <div class="col-sm-4">
                     <span *ngIf="!tableEditing && writeAccess(item) && deleteConfirmation_Id==''" style="float:right">
-                        <button class="btn btn-warning ml-2" (click)="editrow=item._id; tableEditing=true; deleteConfirmation_Id=''; reloadThemes()">Edit</button>
+                        <button class="btn btn-warning ml-2" (click)="editrow=item._id; tableEditing=true; deleteConfirmation_Id=''; reloadThemes()">{{ 'themes.button.edit' | translate }}</button>
                     </span>
                     <span *ngIf="!tableEditing && writeAccess(item) && deleteConfirmation_Id==''" style="float:right">
-                        <button class="btn btn-danger" (click)="confirmDelete(item._id); reloadThemes()">Delete</button>
+                        <button class="btn btn-danger" (click)="confirmDelete(item._id); reloadThemes()">{{ 'themes.button.delete' | translate }}</button>
                     </span>
                     <span *ngIf="tableEditing && editrow==item._id" style="float:right">
-                        <button class="btn btn-warning" (click)="tableEditing=false; addTheme(item);" [disabled]="!item.name || !item.description">Save</button>
+                        <button class="btn btn-warning" (click)="tableEditing=false; addTheme(item);" [disabled]="!item.name || !item.description">{{ 'themes.button.save' | translate }}</button>
                     </span>
                 </div>
             </div>
@@ -80,13 +80,13 @@
             <td></td>
             <td>
                 <span *ngIf="!tableEditing && deleteConfirmation_Id==''">
-                    <strong><span>Theme title:</span></strong><br/>
+                    <strong><span>{{ 'themes.theme_title' | translate }}:</span></strong><br/>
                     <textarea rows="2" class="form-control" [(ngModel)]="newTheme.name" (change)="reloadThemes()"></textarea>
                 </span>
             <!-- </td>
             <td> -->
                 <span *ngIf="!tableEditing && deleteConfirmation_Id==''">
-                    <strong><span>Theme description:</span></strong><br/>
+                    <strong><span>{{ 'themes.theme_description' | translate }}:</span></strong><br/>
                     <textarea rows="3" class="form-control" [(ngModel)]="newTheme.description" (change)="reloadThemes()"></textarea>
                 </span>
             <!-- </td>
@@ -94,7 +94,7 @@
             <!-- </td>
             <td> -->
                 <span *ngIf="!tableEditing && deleteConfirmation_Id==''" style="float:right">
-                    <button class="btn btn-success mt-1" (click)="addTheme(newTheme)" [disabled]="!newTheme.name || !newTheme.description">Add</button>
+                    <button class="btn btn-success mt-1" (click)="addTheme(newTheme)" [disabled]="!newTheme.name || !newTheme.description">{{ 'themes.button.add' | translate }}</button>
                 </span>
             </td>
         </tr> 
