@@ -1,12 +1,12 @@
-<nav class="navbar navbar-dark bg-dark b-0 m-0">
-  <div class= "b-0 m-0" style="width: 100%;">
-      <div class="row b-0 m-0" style="width:100%">
-        <div class="col-6 b-0 m-0">
+<nav class="navbar navbar-dark bg-dark pl-4 m-0">
+  <div class= "container-fluid p-0 m-0" style="width: 100%;">
+      <div class="row p-0 m-0" style="width:100%">
+        <div class="col-6 p-0 m-0">
           <a *ngIf="!(themeNav || activityNav)" class="navbar-brand" routerLink="/home">{{ 'deep_pockets' | translate }}</a>
           <a *ngIf="themeNav" class="navbar-brand" [routerLink]="['/','themeLanding',themeNav]" [queryParams]="{themenav:themeNav}">{{configSettings.navbar_text}}</a>
           <a *ngIf="activityNav" class="navbar-brand" [routerLink]="['/','landing',activityNav]" [queryParams]="{activitynav:activityNav}">{{configSettings.navbar_text}}</a>
         </div>
-        <div class="col-6 text-right">
+        <div class="col-6 text-end">
           <span style="color: white;" class="small"><a style="cursor: pointer;" (click)="useLanguage('en');">English</a>&nbsp;<a style="cursor: pointer;" (click)="useLanguage('cy')">Cymraeg</a></span>&nbsp;
  
           

@@ -1,9 +1,9 @@
 <paNavBar></paNavBar>
-<div style="width: 100%; background-color: white;" class="border pl-3 pr-3 mb-3">
+<div style="width: 100%; background-color: white;" class="border pl-3 pr-3 mb-3 container-fluid">
     <p class="lead">{{ 'collection.para' | translate }} </p>
     <div *ngIf="isAdmin()" class="form-group">
         <div *ngIf="!model.selectedCollectionArtworkId" class="col-xs-12">
-            <button class="float-right btn btn-success" (click)="addCollectionArtwork(); deleteConfirmation_Id=null">{{ 'collection.button.new_collection_artwork' | translate }}</button><br/><br/>
+            <button class="float-end btn btn-success" (click)="addCollectionArtwork(); deleteConfirmation_Id=null">{{ 'collection.button.new_collection_artwork' | translate }}</button><br/><br/>
         </div>
         <div *ngIf="!model.selectedCollectionArtworkId" class="row pt-2">
             <div class=" col-12">
@@ -15,8 +15,8 @@
 <!-- </div>
 <div *ngIf="isAdmin()" class="card border p-3 mb-3" style="border-radius: 15px;"> -->
     <div class="row pb-2" *ngIf="!model.selectedCollectionArtworkId">
-        <span class="fs-6 ml-1" *ngIf="filteredResults().length <= searchCollectionDisplayLimit">{{filteredResults().length}} {{ 'collection.items_shown' | translate }}</span>
-        <span class="fs-6 ml-1" *ngIf="filteredResults().length > searchCollectionDisplayLimit" class="fs-6">{{(filteredResults() | slice:0:searchCollectionDisplayLimit).length}} {{ 'collection.of' | translate }} {{filteredResults().length}} {{ 'collection.items_shown' | translate }}</span>
+        <span class="fs-6" *ngIf="filteredResults().length <= searchCollectionDisplayLimit">{{filteredResults().length}} {{ 'collection.items_shown' | translate }}</span>
+        <span class="fs-6" *ngIf="filteredResults().length > searchCollectionDisplayLimit" class="fs-6">{{(filteredResults() | slice:0:searchCollectionDisplayLimit).length}} {{ 'collection.of' | translate }} {{filteredResults().length}} {{ 'collection.items_shown' | translate }}</span>
     </div>
     <ng-container *ngIf="!model.selectedCollectionArtworkId">
         <ng-container *ngFor="let collectionArtwork of filteredResults() | slice:0:searchCollectionDisplayLimit; let i = index; let last = last">
@@ -38,12 +38,12 @@
                     </div>
                 </div>
                 <div class="row" *ngIf="deleteConfirmation_Id==collectionArtwork._id">
-                    <div class="alert alert-danger" role="alert"><strong>{{ 'collection.are_you_sure' | translate }}</strong> <div><button class="btn btn-danger ml-2" (click)="deleteCollectionArtwork(collectionArtwork._id); deleteConfirmation_Id=null">{{ 'collection.button.ok' | translate }}</button> <button class="btn btn-secondary ml-2" (click)="deleteConfirmation_Id=null">{{ 'collection.button.cancel' | translate }}</button></div></div>
+                    <div class="alert alert-danger" role="alert"><strong>{{ 'collection.are_you_sure' | translate }}</strong> <div><button class="btn btn-danger" (click)="deleteCollectionArtwork(collectionArtwork._id); deleteConfirmation_Id=null">{{ 'collection.button.ok' | translate }}</button> <button class="btn btn-secondary ms-2" (click)="deleteConfirmation_Id=null">{{ 'collection.button.cancel' | translate }}</button></div></div>
                 </div>
                 <div class="row mt-1" *ngIf="deleteConfirmation_Id!=collectionArtwork._id">
                     <div class="container">
-                        <button (click)="setSelectedCollectionArtwork(collectionArtwork); deleteConfirmation_Id=null;" class="float-right btn btn-warning">{{ 'collection.button.edit' | translate }}</button>
-                        <button (click)="deleteConfirmation_Id=collectionArtwork._id" class="float-right mr-3 btn btn-danger">{{ 'collection.button.delete' | translate }}</button>
+                        <button (click)="setSelectedCollectionArtwork(collectionArtwork); deleteConfirmation_Id=null;" class="float-end btn btn-warning">{{ 'collection.button.edit' | translate }}</button>
+                        <button (click)="deleteConfirmation_Id=collectionArtwork._id" class="float-end me-3 btn btn-danger">{{ 'collection.button.delete' | translate }}</button>
                     </div>
                 </div>
                 <div *ngIf="!last" class="row">
@@ -69,7 +69,7 @@
             <strong>{{ 'collection.description' | translate }}: </strong><textarea rows="10" class="form-control" [(ngModel)]="model.selectedCollectionArtwork.description"></textarea>
         </div>
         <div class="mt-1 mb-5">
-            <button (click)="saveCollectionArtwork(model.selectedCollectionArtwork); unsetSelectedCollectionArtwork();" class="float-right btn btn-warning">{{ 'collection.button.save' | translate }}</button>
+            <button (click)="saveCollectionArtwork(model.selectedCollectionArtwork); unsetSelectedCollectionArtwork();" class="float-end btn btn-warning">{{ 'collection.button.save' | translate }}</button>
         </div>
     </div>
     <div class="row pr-2 pl-2 pb-3" *ngIf="!model.selectedCollectionArtworkId && filteredResults().length > searchCollectionDisplayLimit">

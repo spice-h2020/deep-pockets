@@ -1,5 +1,5 @@
 <paNavBar></paNavBar>
-<div style="width: 100%; background-color: white;" class="border pl-3 pr-3">
+<div style="width: 100%; background-color: white;" class="border pl-3 pr-3 container-fluid">
 <p class="lead">{{ 'themes.para' | translate }}</p>
 <div *ngIf="isLoggedIn()" class="form-group">
 <div class="row">
@@ -45,7 +45,7 @@
                     <p>{{item.description}}</p>
                     <span *ngIf="deleteConfirmation_Id==item._id">
                         <br/>
-                        <div class="alert alert-danger" role="alert"><strong>{{ 'themes.are_you_sure' | translate }}</strong> <div><button class="btn btn-danger ml-2" (click)="deleteTheme(item._id); deleteConfirmation_Id=''">{{ 'themes.button.ok' | translate }}</button> <button class="btn btn-secondary ml-2" (click)="deleteConfirmation_Id=''">{{ 'themes.button.cancel' | translate }}</button></div></div>
+                        <div class="alert alert-danger" role="alert"><strong>{{ 'themes.are_you_sure' | translate }}</strong> <div><button class="btn btn-danger" (click)="deleteTheme(item._id); deleteConfirmation_Id=''">{{ 'themes.button.ok' | translate }}</button> <button class="btn btn-secondary ms-2" (click)="deleteConfirmation_Id=''">{{ 'themes.button.cancel' | translate }}</button></div></div>
                         <br/>
                     </span>
                 </span>
@@ -63,7 +63,7 @@
                 </div>
                 <div class="col-sm-4">
                     <span *ngIf="!tableEditing && writeAccess(item) && deleteConfirmation_Id==''" style="float:right">
-                        <button class="btn btn-warning ml-2" (click)="editrow=item._id; tableEditing=true; deleteConfirmation_Id=''; reloadThemes()">{{ 'themes.button.edit' | translate }}</button>
+                        <button class="btn btn-warning ms-2" (click)="editrow=item._id; tableEditing=true; deleteConfirmation_Id=''; reloadThemes()">{{ 'themes.button.edit' | translate }}</button>
                     </span>
                     <span *ngIf="!tableEditing && writeAccess(item) && deleteConfirmation_Id==''" style="float:right">
                         <button class="btn btn-danger" (click)="confirmDelete(item._id); reloadThemes()">{{ 'themes.button.delete' | translate }}</button>

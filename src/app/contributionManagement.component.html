@@ -1,5 +1,5 @@
 <paNavBar></paNavBar>
-<div style="width: 100%; background-color: white;" class="border pl-3 pr-3 mb-3">
+<div style="width: 100%; background-color: white;" class="border pl-3 pr-3 mb-3 container-fluid">
 <p class="lead">{{ 'management.para' | translate }}</p>
 <p *ngIf="isAdmin()">
     {{ 'management.show_authored_by' | translate }}:&nbsp;
@@ -69,9 +69,9 @@
                 <table class="table table-sm">
                 <tr><td width="90%">
                     <h4 class="text-sm-left">{{item.script.name}}
-                        <div class="float-right">
-                            <button *ngIf="item._id!=editContribution" (click)="editContribution=item._id" class="float-right btn btn-warning">{{ 'management.button.edit' | translate }}</button>
-                            <button *ngIf="item._id==editContribution" (click)="editContribution=''; saveActivity(item)" class="float-right btn btn-warning">{{ 'management.button.save' | translate }}</button>
+                        <div class="float-end">
+                            <button *ngIf="item._id!=editContribution" (click)="editContribution=item._id" class="float-end btn btn-warning">{{ 'management.button.edit' | translate }}</button>
+                            <button *ngIf="item._id==editContribution" (click)="editContribution=''; saveActivity(item)" class="float-end btn btn-warning">{{ 'management.button.save' | translate }}</button>
                         </div>
                     </h4>
                     <div class="card text-white mb-3 museum-colour" style="border-radius: 15px; clear: both;">
@@ -199,7 +199,7 @@
                     </div>
 
                     <span *ngIf="deleteConfirmation_Id==item._id">
-                        <div class="alert alert-danger" role="alert"><strong>{{ 'management.are_you_sure' | translate }}</strong> <div><button class="btn btn-danger ml-2" (click)="deleteActivity(item._id)">{{ 'management.button.ok' | translate }}</button> <button class="btn btn-secondary ml-2" (click)="deleteConfirmation_Id=''">{{ 'management.button.cancel' | translate }}</button></div></div>
+                        <div class="alert alert-danger" role="alert"><strong>{{ 'management.are_you_sure' | translate }}</strong> <div><button class="btn btn-danger" (click)="deleteActivity(item._id)">{{ 'management.button.ok' | translate }}</button> <button class="btn btn-secondary ms-2" (click)="deleteConfirmation_Id=''">{{ 'management.button.cancel' | translate }}</button></div></div>
                     </span>
                 </td>
                 <!-- <td width="10%">
@@ -213,11 +213,11 @@
             <div class="text-sm-left">
                 <div *ngIf="item.approved">
                     <button class="col-sm-4 text-center btn btn-warning" (click)="item.approved=false; saveActivity(item)">{{ 'management.button.reject' | translate }}</button>
-                    <button class="col-sm-4 text-center float-right btn btn-danger" (click)="confirmDelete(item._id)">{{ 'management.button.delete' | translate }}</button>            
+                    <button class="col-sm-4 text-center float-end btn btn-danger" (click)="confirmDelete(item._id)">{{ 'management.button.delete' | translate }}</button>            
                 </div>
                 <span *ngIf="!(item.approved)">
                     <button class="col-sm-4 text-center btn btn-success" (click)="item.approved=true; saveActivity(item)">{{ 'management.button.approve' | translate }}</button>
-                    <button class="col-sm-4 text-center float-right btn btn-danger" (click)="confirmDelete(item._id)">{{ 'management.button.delete' | translate }}</button>   
+                    <button class="col-sm-4 text-center float-end btn btn-danger" (click)="confirmDelete(item._id)">{{ 'management.button.delete' | translate }}</button>   
                 </span>
             </div>
         </div>
@@ -240,9 +240,9 @@
                 <table class="table table-sm">
                     <tr><td width="90%">
                         <h4 class="text-sm-left">{{item.script.name}}
-                            <div class="float-right">
-                                <button *ngIf="item._id!=editContribution" (click)="editContribution=item._id" class="float-right btn btn-warning">{{ 'management.button.edit' | translate }}</button>
-                                <button *ngIf="item._id==editContribution" (click)="editContribution=''; saveActivity(item)" class="float-right btn btn-warning">{{ 'management.button.save' | translate }}</button>
+                            <div class="float-end">
+                                <button *ngIf="item._id!=editContribution" (click)="editContribution=item._id" class="float-end btn btn-warning">{{ 'management.button.edit' | translate }}</button>
+                                <button *ngIf="item._id==editContribution" (click)="editContribution=''; saveActivity(item)" class="float-end btn btn-warning">{{ 'management.button.save' | translate }}</button>
                             </div>
                         </h4>
     
@@ -290,7 +290,7 @@
                         </div>
     
                         <span *ngIf="deleteConfirmation_Id==item._id">
-                            <div class="alert alert-danger" role="alert"><strong>{{ 'management.are_you_sure' | translate }}</strong> <div><button class="btn btn-danger ml-2" (click)="deleteActivity(item._id)">{{ 'management.button.ok' | translate }}</button> <button class="btn btn-secondary ml-2" (click)="deleteConfirmation_Id=''">{{ 'management.button.cancel' | translate }}</button></div></div>
+                            <div class="alert alert-danger" role="alert"><strong>{{ 'management.are_you_sure' | translate }}</strong> <div><button class="btn btn-danger" (click)="deleteActivity(item._id)">{{ 'management.button.ok' | translate }}</button> <button class="btn btn-secondary ms-2" (click)="deleteConfirmation_Id=''">{{ 'management.button.cancel' | translate }}</button></div></div>
                         </span>
                     </td>
                     <!-- <td width="10%">
@@ -304,11 +304,11 @@
             <div class="text-sm-left">
                 <div *ngIf="item.approved">
                     <button class="col-sm-4 text-center btn btn-warning" (click)="item.approved=false; saveActivity(item)">{{ 'management.button.reject' | translate }}</button>
-                    <button class="col-sm-4 text-center float-right btn btn-danger" (click)="confirmDelete(item._id)">{{ 'management.button.delete' | translate }}</button>            
+                    <button class="col-sm-4 text-center float-end btn btn-danger" (click)="confirmDelete(item._id)">{{ 'management.button.delete' | translate }}</button>            
                 </div>
                 <span *ngIf="!(item.approved)">
                     <button class="col-sm-4 text-center btn btn-success" (click)="item.approved=true; saveActivity(item)">{{ 'management.button.approve' | translate }}</button>
-                    <button class="col-sm-4 text-center float-right btn btn-danger" (click)="confirmDelete(item._id)">{{ 'management.button.delete' | translate }}</button>   
+                    <button class="col-sm-4 text-center float-end btn btn-danger" (click)="confirmDelete(item._id)">{{ 'management.button.delete' | translate }}</button>   
                 </span>
             </div>
         </div>
@@ -331,9 +331,9 @@
                 <table class="table table-sm">
                     <tr><td width="90%">
                         <h4 class="text-sm-left">{{item.script.name}}
-                            <div class="float-right">
-                                <button *ngIf="item._id!=editContribution" (click)="editContribution=item._id" class="float-right btn btn-warning">{{ 'management.button.edit' | translate }}</button>
-                                <button *ngIf="item._id==editContribution" (click)="editContribution=''; saveActivity(item)" class="float-right btn btn-warning">{{ 'management.button.save' | translate }}</button>
+                            <div class="float-end">
+                                <button *ngIf="item._id!=editContribution" (click)="editContribution=item._id" class="float-end btn btn-warning">{{ 'management.button.edit' | translate }}</button>
+                                <button *ngIf="item._id==editContribution" (click)="editContribution=''; saveActivity(item)" class="float-end btn btn-warning">{{ 'management.button.save' | translate }}</button>
                             </div>
                         </h4>    
     
@@ -381,7 +381,7 @@
                         </div>
     
                         <span *ngIf="deleteConfirmation_Id==item._id">
-                            <div class="alert alert-danger" role="alert"><strong>{{ 'management.are_you_sure' | translate }}</strong> <div><button class="btn btn-danger ml-2" (click)="deleteActivity(item._id)">{{ 'management.button.ok' | translate }}</button> <button class="btn btn-secondary ml-2" (click)="deleteConfirmation_Id=''">{{ 'management.button.cancel' | translate }}</button></div></div>
+                            <div class="alert alert-danger" role="alert"><strong>{{ 'management.are_you_sure' | translate }}</strong> <div><button class="btn btn-danger" (click)="deleteActivity(item._id)">{{ 'management.button.ok' | translate }}</button> <button class="btn btn-secondary ms-2" (click)="deleteConfirmation_Id=''">{{ 'management.button.cancel' | translate }}</button></div></div>
                         </span>
                     </td>
                     <!-- <td width="10%">
@@ -396,11 +396,11 @@
             <div class="text-sm-left">
                 <div *ngIf="item.approved">
                     <button class="col-sm-4 text-center btn btn-warning" (click)="item.approved=false; saveActivity(item)">{{ 'management.button.reject' | translate }}</button>
-                    <button class="col-sm-4 text-center float-right btn btn-danger" (click)="confirmDelete(item._id)">{{ 'management.button.delete' | translate }}</button>            
+                    <button class="col-sm-4 text-center float-end btn btn-danger" (click)="confirmDelete(item._id)">{{ 'management.button.delete' | translate }}</button>            
                 </div>
                 <span *ngIf="!(item.approved)">
                     <button class="col-sm-4 text-center btn btn-success" (click)="item.approved=true; saveActivity(item)">{{ 'management.button.appprove' | translate }}</button>
-                    <button class="col-sm-4 text-center float-right btn btn-danger" (click)="confirmDelete(item._id)">{{ 'management.button.delete' | translate }}</button>   
+                    <button class="col-sm-4 text-center float-end btn btn-danger" (click)="confirmDelete(item._id)">{{ 'management.button.delete' | translate }}</button>   
                 </span>
             </div>
         </div>

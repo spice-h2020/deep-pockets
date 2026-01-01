@@ -207,7 +207,7 @@
                   </div>
                   <div class="col-sm-4" style="margin:0; padding:0">
                     <a [routerLink]="['/','themeLanding',model.selectedTheme.themeid]" [queryParams]="{return:'home'}">
-                      <button class="btn btn-dark overviewshadow float-right ml-0" style="width: 10em; font-size: large; color: white; line-height: 1.2;">{{ 'home.button.theme_page' | translate }} <i class='fa fa-link'></i></button>
+                      <button class="btn btn-dark overviewshadow float-end ms-0" style="width: 10em; font-size: large; color: white; line-height: 1.2;">{{ 'home.button.theme_page' | translate }} <i class='fa fa-link'></i></button>
                     </a>
                   </div>
                 </div>
@@ -316,7 +316,7 @@
                   <div class="col-sm-6">
                       <img style="width: 100%;" src="{{model.selectedArtwork.artworkurl}}" alt="{{model.selectedArtwork.name}}" (error)="handleMissingImage($event)">
                   </div>
-                  <div class="col-sm ml-3">
+                  <div class="col-sm ms-3">
                     <div class="row text-left" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="model.selectedArtwork.name"></div>
                     <strong><div class="row text-left" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="model.selectedArtwork.artist"></div></strong>
                     <div class="row text-left" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="model.selectedArtwork.year"></div>
@@ -587,12 +587,13 @@
     </div>
 </div>
 <div style="width: 100%; background-color: white;" class="border pl-3 pr-3">
-
-<p class="lead"></p>
-<p class="lead">
-  {{ 'home.para1' | translate }}
-</p>
-<p class="lead">{{ 'home.para2' | translate }}</p>
+<div class="container">
+  <p class="lead"></p>
+  <p class="lead">
+    {{ 'home.para1' | translate }}
+  </p>
+  <p class="lead">{{ 'home.para2' | translate }}</p>
+</div>
 
 <!-- <p class="lead"></p>
 <p class="lead">

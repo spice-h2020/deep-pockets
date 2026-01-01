@@ -1,5 +1,5 @@
 <paNavBar></paNavBar>
-<div style="width: 100%; background-color: white;" class="border pl-3 pr-3">
+<div style="width: 100%; background-color: white;" class="border pl-3 pr-3 container-fluid">
 <p class="lead">{{ 'login.para' | translate }}</p>
 <span *ngIf="getCurrentUserID()==undefined">
     <span>{{ 'login.username' | translate }}</span>
@@ -23,14 +23,14 @@
     <td>
     <h4 class="text-sm-left">
         {{activity.script.name}}
-        <div class="float-right">
-            <button *ngIf="activity._id!=editContribution" (click)="editContribution=activity._id" class="float-right btn btn-warning">{{ 'login.button.edit' | translate }}</button>
-            <button *ngIf="activity._id!=editContribution" (click)="confirmDelete(activity._id); editContribution=''" class="mr-3 float-right btn btn-danger">{{ 'login.button.delete' | translate }}</button>
-            <button *ngIf="activity._id==editContribution" (click)="editContribution=''; saveActivity(activity)" class="float-right btn btn-warning">{{ 'login.button.save' | translate }}</button>
+        <div class="float-end">
+            <button *ngIf="activity._id!=editContribution" (click)="editContribution=activity._id" class="float-end btn btn-warning">{{ 'login.button.edit' | translate }}</button>
+            <button *ngIf="activity._id!=editContribution" (click)="confirmDelete(activity._id); editContribution=''" class="me-3 float-end btn btn-danger">{{ 'login.button.delete' | translate }}</button>
+            <button *ngIf="activity._id==editContribution" (click)="editContribution=''; saveActivity(activity)" class="float-end btn btn-warning">{{ 'login.button.save' | translate }}</button>
         </div>
     </h4>
     <div *ngIf="deleteConfirmation_Id==activity._id">
-        <div class="alert alert-danger" role="alert"><strong>{{ 'login.are_you_sure' | translate }}</strong> <div><button class="btn btn-danger" (click)="deleteActivity(activity._id)">{{ 'login.button.ok' | translate }}</button> <button class="btn btn-secondary ml-2" (click)="deleteConfirmation_Id=''">{{ 'login.button.cancel' | translate }}</button></div></div>
+        <div class="alert alert-danger" role="alert"><strong>{{ 'login.are_you_sure' | translate }}</strong> <div><button class="btn btn-danger" (click)="deleteActivity(activity._id)">{{ 'login.button.ok' | translate }}</button> <button class="btn btn-secondary ms-2" (click)="deleteConfirmation_Id=''">{{ 'login.button.cancel' | translate }}</button></div></div>
     </div>
     <div class="card text-white mb-3 museum-colour" style="border-radius: 15px; clear: both;">
         <div class="card-body">
@@ -163,7 +163,7 @@
     </div>
     </td>
     <!-- <td><span class="text-sm-left font-weight-bold">&nbsp;</span><br/>
-        <span *ngIf="activity._id!=editContribution"><button (click)="editContribution=activity._id" class="mb-3 mr-3 btn btn-warning">Edit</button><br/></span>
+        <span *ngIf="activity._id!=editContribution"><button (click)="editContribution=activity._id" class="mb-3 me-3 btn btn-warning">Edit</button><br/></span>
         <span *ngIf="activity._id!=editContribution"><button (click)="confirmDelete(activity._id); editContribution=''" class="btn btn-danger">Delete</button></span>
         <span *ngIf="activity._id==editContribution"><button (click)="editContribution=''; saveActivity(activity)" class="btn btn-warning">Save</button></span>
     </td> -->

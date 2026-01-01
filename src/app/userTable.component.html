@@ -1,5 +1,5 @@
 <paNavBar></paNavBar>
-<div style="width: 100%; background-color: white;" class="border pl-3 pr-3">
+<div style="width: 100%; background-color: white;" class="border pl-3 pr-3 container-fluid">
 <p class="lead">{{ 'users.para' | translate }}</p>
 <div class="form-group">
     <span *ngIf="getCurrentUserID()==1">
@@ -43,7 +43,7 @@
                             <textarea rows="2" class="form-control" [(ngModel)]="item.displayname"></textarea>
                         </span>
                         <span *ngIf="deleteConfirmation_Id==item._id">
-                            <div class="alert alert-danger" role="alert"><strong>{{ 'users.are_you_sure' | translate }}</strong> <div><button class="btn btn-danger ml-2" (click)="deleteUser(item._id)">{{ 'users.button.ok' | translate }}</button> <button class="btn btn-secondary ml-2" (click)="deleteConfirmation_Id=''">{{ 'users.button.cancel' | translate }}</button></div></div>
+                            <div class="alert alert-danger" role="alert"><strong>{{ 'users.are_you_sure' | translate }}</strong> <div><button class="btn btn-danger" (click)="deleteUser(item._id)">{{ 'users.button.ok' | translate }}</button> <button class="btn btn-secondary ms-2" (click)="deleteConfirmation_Id=''">{{ 'users.button.cancel' | translate }}</button></div></div>
                         </span>
                     </td>
                     <td>

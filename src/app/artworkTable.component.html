@@ -1,5 +1,5 @@
 <paNavBar></paNavBar>
-<div style="width: 100%; background-color: white;" class="border pl-3 pr-3">
+<div style="width: 100%; background-color: white;" class="border pl-3 pr-3 container-fluid">
 <p class="lead">{{ 'artworks.para' | translate }}</p>
 <div *ngIf="isLoggedIn()" class="form-group">
 
@@ -98,15 +98,15 @@
                             <div class="col-12">
                                 <img src="{{item.url}}" alt="{{item.name}}" height="auto" style="width:100%" (error)="handleMissingImage($event)">
                             </div>
-                            <div class="col-12 ml-1">
-                                <div class="col-12">
+                            <div class="col-12 ms-1">
+                                <div class="col-12 ms-2">
                                     <div class="row text-left" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="item.name"></div>
                                     <strong><div class="row text-left" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="item.artist"></div></strong>
                                     <div class="row text-left" style="white-space: pre-wrap; line-height: 1.2;">{{item.year}}</div>
                                 </div>
                             </div>
                             <div class="col-12" *ngIf="deleteConfirmation_Id!=item._id">
-                                <button class="float-right btn btn-danger"  (click)="confirmDelete(item._id)">{{ 'artworks.button.delete' | translate }}</button>
+                                <button class="float-end btn btn-danger"  (click)="confirmDelete(item._id)">{{ 'artworks.button.delete' | translate }}</button>
                             </div>
                     
                             <span *ngIf="deleteConfirmation_Id==item._id">
@@ -121,7 +121,7 @@
                                     <li>{{artworkscript.name}}</li>
                                 </ul> -->
                                 <div class="text-end">
-                                    <button class="btn btn-secondary" (click)="deleteConfirmation_Id=''">{{ 'artworks.button.cancel' | translate }}</button><button class="btn btn-danger ml-2" (click)="deleteArtwork(item._id)">{{ 'artworks.button.ok' | translate }}</button></div>
+                                    <button class="btn btn-secondary" (click)="deleteConfirmation_Id=''">{{ 'artworks.button.cancel' | translate }}</button><button class="btn btn-danger ms-2" (click)="deleteArtwork(item._id)">{{ 'artworks.button.ok' | translate }}</button></div>
                                 </div>
                             </span>
                         </div>
@@ -228,8 +228,8 @@
                             <div class="col-12">
                                 <img src="{{item.filelocation}}" alt="{{item.name}}" height="auto" style="width:100%" (error)="handleMissingImage($event)">
                             </div>
-                            <div class="col-12 ml-1">
-                                <div class="col-12">
+                            <div class="col-12 ms-1">
+                                <div class="col-12 ms-2">
                                     <div class="row text-left" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="item.name"></div>
                                     <strong><div class="row text-left" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="item.artist"></div></strong>
                                     <div class="row text-left" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="item.year"></div>
@@ -239,7 +239,7 @@
                                 <div *ngIf="artworkAddedAlert==item.filelocation" class="col-12 alert alert-success" role="alert">
                                     {{ 'artworks.artwork_added' | translate }}
                                 </div>
-                                <button class="float-right btn btn-success" [disabled]="artworkAlreadyAdded(item.filelocation)" (click)="artworkAddedAlert=item.filelocation; saveArtworkFromParameters(item.name, item.artist, item.year , item.filelocation)" data-bs-toggle="modal" data-bs-target="#archiveModal">{{ 'artworks.button.add' | translate }}</button>
+                                <button class="float-end btn btn-success" [disabled]="artworkAlreadyAdded(item.filelocation)" (click)="artworkAddedAlert=item.filelocation; saveArtworkFromParameters(item.name, item.artist, item.year , item.filelocation)" data-bs-toggle="modal" data-bs-target="#archiveModal">{{ 'artworks.button.add' | translate }}</button>
                             </div>
                         </div>
                     </div>
@@ -289,14 +289,14 @@
             <div class="col-md-4 col-sm-6">
                 <img src="{{selectedURL()}}" alt="{{selectedName()}}" height="auto" style="width:100%" (error)="handleMissingImage($event)">
             </div>
-            <div class="col-sm ml-3">
+            <div class="col-sm ms-3">
                 <div class="row text-left" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="selectedName()"></div>
                 <strong><div class="row text-left" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="selectedArtist()"></div></strong>
                 <div class="row text-left" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="selectedYear()"></div>
             </div>
 
             <div class="col-sm">
-                <button class="float-right btn btn-success" (click)="saveArtwork(); selected=false;">Add</button>
+                <button class="float-end btn btn-success" (click)="saveArtwork(); selected=false;">Add</button>
             </div>
         </div>
     </div>

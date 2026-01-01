@@ -2,6 +2,8 @@
 <div style="width: 100%; background-color: white;" class="border pl-3 pr-3 mb-3">
 <!-- <p class="lead" *ngIf="viewScript=='0'">Select a script.</p> -->
 <!-- <p class="lead" *ngIf="viewScript!='0'"><strong>Selected script: </strong><span *ngIf="selectedScript.name">{{selectedScript.name}}</span></p> -->
+    
+    <div class="container-fluid">
     <div class="row">
         <div class="col-sm-6">
             <p class="lead">{{ 'activities.para' | translate }}</p>
@@ -37,7 +39,7 @@
                 </div>
             </div>
             <div class="col-4" style="min-width: 8em;">
-                <button *ngIf="editScriptStage==0" class="btn btn-secondary float-right mt-1" (click)="editScriptStage=0; showStageHelp=false; unselectScript();">{{ 'activities.button.close_activity' | translate }}</button>
+                <button *ngIf="editScriptStage==0" class="btn btn-secondary float-end mt-1" (click)="editScriptStage=0; showStageHelp=false; unselectScript();">{{ 'activities.button.close_activity' | translate }}</button>
             </div>
         </div>
         
@@ -69,10 +71,11 @@
 
             <div class="col">&nbsp;</div>
             <div class="col-4" style="min-width: 8em;">
-                <button class="btn btn-success float-right" (click)="addScript(); copyScriptMessage=false;" *ngIf="(!isAdmin() || (isAdmin() && currentUser==1))">{{ 'activities.button.new_activity' | translate }}</button>
+                <button class="btn btn-success float-end" (click)="addScript(); copyScriptMessage=false;" *ngIf="(!isAdmin() || (isAdmin() && currentUser==1))">{{ 'activities.button.new_activity' | translate }}</button>
             </div>
         </div>
     </ng-container>
+    </div>
 
 </div>
 <div *ngIf="model.viewScript=='0'" >
@@ -82,26 +85,26 @@
             <h4>{{script.name}}</h4>
         </div>
         <div class="col-md-1" style="min-width: 22em;" *ngIf="isAdmin()">
-            <button class="btn btn-secondary float-right" (click)="selectScript(script._id); setFacetsOnScriptOpening(); showup(); copyScriptMessage=false;">{{ 'activities.button.open_activity' | translate }}</button>
-            <button class="btn btn-danger float-right mt-3" style="clear: both;" *ngIf="!script.removed && currentUser==1" (click)="copyScript(script);">{{ 'activities.button.copy_activity' | translate }}</button>
-            <button class="btn btn-success float-right mt-3" style="clear: both;" *ngIf="script.removed && currentUser!=1" (click)="restoreScript(script); copyScriptMessage=false;">{{ 'activities.button.restore_activity' | translate }}</button>
-            <button class="btn btn-danger float-right mt-3" style="clear: both;" *ngIf="!script.removed && currentUser!=1" (click)="removeScript(script); copyScriptMessage=false;">{{ 'activities.button.remove_activity' | translate }}</button>
-            <button class="btn btn-danger float-right mr-3 mt-3" (click)="confirmDelete(script._id); copyScriptMessage=false;">{{ 'activities.button.delete_activity' | translate }}</button>
+            <button class="btn btn-secondary float-end" (click)="selectScript(script._id); setFacetsOnScriptOpening(); showup(); copyScriptMessage=false;">{{ 'activities.button.open_activity' | translate }}</button>
+            <button class="btn btn-danger float-end mt-3" style="clear: both;" *ngIf="!script.removed && currentUser==1" (click)="copyScript(script);">{{ 'activities.button.copy_activity' | translate }}</button>
+            <button class="btn btn-success float-end mt-3" style="clear: both;" *ngIf="script.removed && currentUser!=1" (click)="restoreScript(script); copyScriptMessage=false;">{{ 'activities.button.restore_activity' | translate }}</button>
+            <button class="btn btn-danger float-end mt-3" style="clear: both;" *ngIf="!script.removed && currentUser!=1" (click)="removeScript(script); copyScriptMessage=false;">{{ 'activities.button.remove_activity' | translate }}</button>
+            <button class="btn btn-danger float-end me-3 mt-3" (click)="confirmDelete(script._id); copyScriptMessage=false;">{{ 'activities.button.delete_activity' | translate }}</button>
         </div>
         <div class="col-md-1" style="min-width: 22em;" *ngIf="!isAdmin()">
-            <button class="btn btn-secondary float-right" (click)="selectScript(script._id); showup(); copyScriptMessage=false;">{{ 'activities.button.open_activity' | translate }}</button>
-            <button class="btn btn-success float-right mt-3" style="clear: both;" (click)="copyScript(script);">{{ 'activities.button.copy_activity' | translate }}</button>
-            <button class="btn btn-danger float-right mr-3 mt-3" (click)="confirmRemove(script._id); copyScriptMessage=false;">{{ 'activities.button.remove_activity' | translate }}</button>
+            <button class="btn btn-secondary float-end" (click)="selectScript(script._id); showup(); copyScriptMessage=false;">{{ 'activities.button.open_activity' | translate }}</button>
+            <button class="btn btn-success float-end mt-3" style="clear: both;" (click)="copyScript(script);">{{ 'activities.button.copy_activity' | translate }}</button>
+            <button class="btn btn-danger float-end me-3 mt-3" (click)="confirmRemove(script._id); copyScriptMessage=false;">{{ 'activities.button.remove_activity' | translate }}</button>
         </div>
     </div>
     <span *ngIf="copiedScript==script.id && copyScriptMessage">
         <div class="alert alert-success fadeout mt-3">{{copyScriptMessageText}}</div>
     </span>
     <div class="row" *ngIf="removeConfirmation_Id==script._id">
-        <div class="alert alert-danger" role="alert"><strong>{{ 'activities.are_you_sure_remove_activity' | translate }}</strong> <div><button class="btn btn-danger ml-2" (click)="removeScript(script)">{{ 'activities.button.ok' | translate }}</button> <button class="btn btn-secondary ml-2" (click)="removeConfirmation_Id=''">{{ 'activities.button.cancel' | translate }}</button></div></div>
+        <div class="alert alert-danger" role="alert"><strong>{{ 'activities.are_you_sure_remove_activity' | translate }}</strong> <div><button class="btn btn-danger me-2" (click)="removeScript(script)">{{ 'activities.button.ok' | translate }}</button> <button class="btn btn-secondary" (click)="removeConfirmation_Id=''">{{ 'activities.button.cancel' | translate }}</button></div></div>
     </div>
     <div class="row" *ngIf="deleteConfirmation_Id==script._id">
-        <div class="alert alert-danger" role="alert"><strong>{{ 'activities.are_you_sure_delete_activity' | translate }}</strong> <div><button class="btn btn-danger ml-2" (click)="deleteScript(script._id)">{{ 'activities.button.ok' | translate }}</button> <button class="btn btn-secondary ml-2" (click)="deleteConfirmation_Id=''">{{ 'activities.button.cancel' | translate }}</button></div></div>
+        <div class="alert alert-danger" role="alert"><strong>{{ 'activities.are_you_sure_delete_activity' | translate }}</strong> <div><button class="btn btn-danger me-2" (click)="deleteScript(script._id)">{{ 'activities.button.ok' | translate }}</button> <button class="btn btn-secondary" (click)="deleteConfirmation_Id=''">{{ 'activities.button.cancel' | translate }}</button></div></div>
     </div>
     <div class="row">
         <div class="col-12">
@@ -163,7 +166,7 @@
                 </div>
                 <div class="col-sm">
                     <a routerLink='/landing/{{script._id}}' [queryParams]="{return:'scripts'}">
-                        <button class="btn btn-light mr-3">{{ 'activities.button.view_landing_page' | translate }} <i class='fa fa-link'></i></button>
+                        <button class="btn btn-light me-3">{{ 'activities.button.view_landing_page' | translate }} <i class='fa fa-link'></i></button>
                     </a>
                     <button class="btn btn-light" ngbPopover="{{landingURL(script)}}" popoverTitle="{{ 'activities.advice.landing_url_copied' | translate }}" ngxClipboard [cbContent]='landingURL(script)'>{{landingButtonText()}} <i class="fa fa-clone" aria-hidden="true"></i></button>
                 </div>
@@ -174,7 +177,7 @@
                 </div>
                 <div class="col-sm">
                     <a routerLink='/slowLooking/{{script._id}}' [queryParams]="{return:'scripts'}">
-                        <button class="btn btn-light mr-3">{{ 'activities.button.view_activity' | translate }} <i class='fa fa-link'></i></button>
+                        <button class="btn btn-light me-3">{{ 'activities.button.view_activity' | translate }} <i class='fa fa-link'></i></button>
                     </a>
                     <button class="btn btn-light" ngbPopover="{{scriptURL(script)}}" popoverTitle="{{ 'activities.advice.activity_url_copied' | translate }}" ngxClipboard [cbContent]='scriptURL(script)'>{{ 'activities.button.copy_activity_url' | translate }} <i class="fa fa-clone" aria-hidden="true"></i></button>
                 </div>
@@ -185,7 +188,7 @@
                 </div>
                 <div class="col-sm">
                     <a routerLink='/allResponses/{{script._id}}'>
-                        <button class="btn btn-light mr-3" (click)="reloadActivities();">{{ 'activities.button.view_responses' | translate }} <i class='fa fa-link'></i></button>
+                        <button class="btn btn-light me-3" (click)="reloadActivities();">{{ 'activities.button.view_responses' | translate }} <i class='fa fa-link'></i></button>
                     </a>
                     <button class="btn btn-light" ngbPopover="{{responsesURL(script)}}" popoverTitle="{{ 'activities.advice.responses_url_copied' | translate }}" ngxClipboard [cbContent]='responsesURL(script)'>{{ 'activities.button.copy_responses_url' | translate }} <i class="fa fa-clone" aria-hidden="true"></i></button>
                 </div>
@@ -204,6 +207,8 @@
                             (change) = toggleScriptStatus(script);
                         />
                         <label class="form-check-label">{{ 'activities.option.open' | translate }}&nbsp;&nbsp;</label>
+                    </div>
+                    <div class="form-check form-check-inline">
                         <input
                             class="form-check-input"
                             type="radio"
@@ -230,6 +235,8 @@
                             (change) = toggleScriptVisibility(script);
                         />
                         <label class="form-check-label">{{ 'activities.option.public' | translate }}&nbsp;&nbsp;</label>
+                        </div>
+                        <div class="form-check form-check-inline">
                         <input
                             class="form-check-input"
                             type="radio"
@@ -257,6 +264,8 @@
                             (change) = toggleScriptApproval(script);
                         />
                         <label class="form-check-label">{{ 'activities.option.awaiting_approval' | translate }}&nbsp;&nbsp;</label>
+                        </div>
+                        <div class="form-check form-check-inline">
                         <input
                             class="form-check-input"
                             type="radio"
@@ -283,6 +292,8 @@
                             (change) = toggleScriptFeatured(script);
                         />
                         <label class="form-check-label">{{ 'activities.option.featured' | translate }}&nbsp;&nbsp;</label>
+                    </div>
+                    <div class="form-check form-check-inline">
                         <input
                             class="form-check-input"
                             type="radio"
@@ -302,7 +313,7 @@
 </div>
 
 
-<div *ngIf="model.viewScript!='0'" style="width: 100%; background-color: white;" class="pl-3 pr-3 pt-1">
+<div *ngIf="model.viewScript!='0'" style="width: 100%; background-color: white;" class="pl-3 pr-3 pt-1 container-fluid">
     <ul ngbNav #nav="ngbNav" class="nav-pills">
         <li ngbNavItem>
           <a ngbNavLink (click)="editScriptStage=0; saveScript(model.selectedScript)"><strong>{{ 'activities.tab.artworks' | translate }}</strong></a>
@@ -437,7 +448,7 @@
                             </div>
                             <div class="row">
                                 <label class="form-check-label"> 
-                                <div class="ml-3">
+                                <div class="ms-3">
                                     <div class="row text-left" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="artwork.name"></div>
                                     <strong><div class="row text-left" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="artwork.artist"></div></strong>
                                     <div class="row text-left" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="artwork.year"></div>
@@ -453,8 +464,8 @@
                 </div>
             </div>
 
-            <!-- <div *ngFor="let artwork of getArtworks(model.selectedScript)" class="form-check form-check-inline pb-3 ml-1" style="width: 260px;"> -->
-            <!-- <div *ngFor="let artwork of getArtworks(model.selectedScript)" class="form-check form-check-inline pb-3 ml-1" style="width: 260px;">
+            <!-- <div *ngFor="let artwork of getArtworks(model.selectedScript)" class="form-check form-check-inline pb-3 ms-1" style="width: 260px;"> -->
+            <!-- <div *ngFor="let artwork of getArtworks(model.selectedScript)" class="form-check form-check-inline pb-3 ms-1" style="width: 260px;">
      
                 <div class=" align-self-center" style="width: 30px;">
                     <input 
@@ -473,7 +484,7 @@
                     </div>
                     <div class="row">
                         <label class="form-check-label"> 
-                        <div class="ml-3">
+                        <div class="ms-3">
                             <div class="row text-left" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="artwork.name"></div>
                             <strong><div class="row text-left" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="artwork.artist"></div></strong>
                             <div class="row text-left" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="artwork.year"></div>
@@ -496,13 +507,13 @@
             <p>{{ 'activities.help.stages' | translate }}</p>
             <div class="row" *ngIf="editScriptStage==0">
                 <div class="col-sm-2">
-                    <span class="font-weight-bold">{{ 'activities.prompt.add_stage' | translate }}</span>
+                    <span class="fw-bold">{{ 'activities.prompt.add_stage' | translate }}</span>
                 </div>
                 <div class="col-sm-10">
-                    <button class="btn btn-success mr-2 mb-1" (click)="addStatementStageToScript(model.selectedScript); deleteStageConfirmationId=0; showStageHelp=false;">{{ 'activities.button.statement' | translate }}</button> 
-                    <button class="btn btn-success mr-2 mb-1" (click)="addQuestionStageToScript(model.selectedScript); deleteStageConfirmationId=0; showStageHelp=false;">{{ 'activities.button.question' | translate }}</button> 
-                    <button class="btn btn-success mr-2 mb-1" (click)="addMultiQuestionStageToScript(model.selectedScript); deleteStageConfirmationId=0; showStageHelp=false;">{{ 'activities.button.multiquestion' | translate }}</button> 
-                    <button class="btn btn-success mr-2 mb-1" (click)="addStoryStageToScript(model.selectedScript); deleteStageConfirmationId=0; showStageHelp=false;">{{ 'activities.button.story' | translate }}</button>
+                    <button class="btn btn-success me-2 mb-1" (click)="addStatementStageToScript(model.selectedScript); deleteStageConfirmationId=0; showStageHelp=false;">{{ 'activities.button.statement' | translate }}</button> 
+                    <button class="btn btn-success me-2 mb-1" (click)="addQuestionStageToScript(model.selectedScript); deleteStageConfirmationId=0; showStageHelp=false;">{{ 'activities.button.question' | translate }}</button> 
+                    <button class="btn btn-success me-2 mb-1" (click)="addMultiQuestionStageToScript(model.selectedScript); deleteStageConfirmationId=0; showStageHelp=false;">{{ 'activities.button.multiquestion' | translate }}</button> 
+                    <button class="btn btn-success me-2 mb-1" (click)="addStoryStageToScript(model.selectedScript); deleteStageConfirmationId=0; showStageHelp=false;">{{ 'activities.button.story' | translate }}</button>
                     <img class="mb-1" width="25" style="background-color:white; cursor: pointer;" src="assets/img/question-help.png" (click)="toggleStageHelp(); newStageMessage=false; copyStageMessage=false;">
                 </div>
             </div>
@@ -512,7 +523,7 @@
             <div *ngIf="editScriptStage==0 && showStageHelp" class="alert alert-info">
                 <div class="row">
                     <div class="col-sm-2" style="min-width: 9em;">
-                        <span class="font-weight-bold">{{ 'activities.help.statement' | translate }}: </span>
+                        <span class="fw-bold">{{ 'activities.help.statement' | translate }}: </span>
                     </div>
                     <div class="col-sm">
                         <span>{{ 'activities.help.statement_description' | translate }}</span>
@@ -520,7 +531,7 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-2" style="min-width: 9em;">
-                        <span class="font-weight-bold">{{ 'activities.help.question' | translate }}: </span>
+                        <span class="fw-bold">{{ 'activities.help.question' | translate }}: </span>
                     </div>
                     <div class="col-sm">
                         <span>{{ 'activities.help.question_description' | translate }}</span>
@@ -528,7 +539,7 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-2" style="min-width: 9em;">
-                        <span class="font-weight-bold">{{ 'activities.help.multiquestion' | translate }}: </span>
+                        <span class="fw-bold">{{ 'activities.help.multiquestion' | translate }}: </span>
                     </div>
                     <div class="col-sm">
                         <span>{{ 'activities.help.multiquestion_description' | translate }}</span>
@@ -536,7 +547,7 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-2" style="min-width: 9em;">
-                        <span class="font-weight-bold">{{ 'activities.help.story' | translate }}: </span>
+                        <span class="fw-bold">{{ 'activities.help.story' | translate }}: </span>
                     </div>
                     <div class="col-sm">
                         <span>{{ 'activities.help.story_description' | translate }}</span>
@@ -563,7 +574,7 @@
                         </span>{{i+1}}<br/>
                         <div class="row">
                             <div class="col-sm-2" style="min-width: 8em;">
-                                <span class="font-weight-bold">{{ 'activities.prompt.title' | translate }}: </span>
+                                <span class="fw-bold">{{ 'activities.prompt.title' | translate }}: </span>
                             </div>
                             <div class="col-sm">
                                 <span>{{stage.title}}</span>
@@ -571,7 +582,7 @@
                         </div>
                         <div class="row">
                             <div class="col-sm-2" style="min-width: 8em;">
-                                <span class="font-weight-bold">{{ 'activities.prompt.type' | translate }}: </span>
+                                <span class="fw-bold">{{ 'activities.prompt.type' | translate }}: </span>
                             </div>
                             <div class="col-sm">
                                 <span>{{translate_stage_type(stage.stagetype)}}</span>
@@ -579,7 +590,7 @@
                         </div>
                         <div class="row">
                             <div class="col-sm-2" style="min-width: 8em;">
-                                <span class="font-weight-bold">{{ 'activities.prompt.artworks' | translate }}: </span>
+                                <span class="fw-bold">{{ 'activities.prompt.artworks' | translate }}: </span>
                             </div>
                             <div class="col-sm">
                                 <span *ngIf="!getArtworksFromIds(model.selectedScript.name, model.selectedScript.artworkids, model.selectedScript).length" class="text-info">
@@ -592,7 +603,7 @@
                         </div>
                         <div class="row" *ngIf='stage.stagetype=="multiquestion"'>
                             <div class="col-sm-2" style="min-width: 8em;">
-                                <span class="font-weight-bold">{{ 'activities.prompt.style' | translate }}: </span>
+                                <span class="fw-bold">{{ 'activities.prompt.style' | translate }}: </span>
                             </div>
                             <div class="col-sm">
                                 <span *ngIf='stage.sequential'>{{ 'activities.option.questions_in_sequence' | translate }}</span>
@@ -601,7 +612,7 @@
                         </div>
                         <div class="row" *ngIf='stage.stagetype=="multiquestion"'>
                             <div class="col-sm-2" style="min-width: 8em;">
-                                <span class="font-weight-bold">{{ 'activities.prompt.help_text' | translate }}: </span>
+                                <span class="fw-bold">{{ 'activities.prompt.help_text' | translate }}: </span>
                             </div>
                             <div class="col-sm">
                                 <span style="white-space: pre-wrap;" [innerHTML]="stage.help | linkify"></span>
@@ -612,7 +623,7 @@
                             <ng-container *ngFor="let question of stage.questions; let i=index">
                                 <div class="row">
                                     <div class="col-sm-2" style="min-width: 8em;">
-                                        <span class="font-weight-bold">{{ 'activities.prompt.question' | translate }} {{i+1}}: </span>
+                                        <span class="fw-bold">{{ 'activities.prompt.question' | translate }} {{i+1}}: </span>
                                     </div>
                                     <div class="col-sm">
                                         <span style="white-space: pre-wrap;" [innerHTML]="question.title | linkify"></span>
@@ -633,7 +644,7 @@
 
                         <div class="row" *ngIf='stage.stagetype=="story"'>
                             <div class="col-sm-2" style="min-width: 8em;">
-                                <span class="font-weight-bold">{{ 'activities.prompt.help_text' | translate }}: </span>
+                                <span class="fw-bold">{{ 'activities.prompt.help_text' | translate }}: </span>
                             </div>
                             <div class="col-sm">
                                 <span style="white-space: pre-wrap;" [innerHTML]="stage.help | linkify"></span>
@@ -642,7 +653,7 @@
                         
                         <div class="row" *ngIf='stage.stagetype=="statement" || stage.stagetype=="story"'>
                             <div class="col-sm-2" style="min-width: 8em;">
-                                <span class="font-weight-bold">{{ 'activities.prompt.text' | translate }}: </span>
+                                <span class="fw-bold">{{ 'activities.prompt.text' | translate }}: </span>
                             </div>
                             <div class="col-sm">
                                 <span class="text-break" style="white-space: pre-wrap;" [innerHTML]="stage.body | linkify"></span>
@@ -652,7 +663,7 @@
                         <ng-container *ngIf='stage.stagetype=="question"'>
                             <div class="row" *ngIf='stage.stagetype=="question"'>
                                 <div class="col-sm-2" style="min-width: 8em;">
-                                    <span class="font-weight-bold">{{ 'activities.prompt.text' | translate }}: </span>
+                                    <span class="fw-bold">{{ 'activities.prompt.text' | translate }}: </span>
                                 </div>
                                 <div class="col-sm">
                                     <span class="text-break" style="white-space: pre-wrap;" [innerHTML]="stage.question.title | linkify"></span>
@@ -670,7 +681,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm-2" style="min-width: 8em;">
-                                    <span class="font-weight-bold">{{ 'activities.prompt.help_text' | translate }}: </span>
+                                    <span class="fw-bold">{{ 'activities.prompt.help_text' | translate }}: </span>
                                 </div>
                                 <div class="col-sm">
                                     <span style="white-space: pre-wrap;" [innerHTML]="stage.help | linkify"></span>
@@ -680,9 +691,9 @@
                         
                         <span *ngIf="editScriptStage==0 && editScriptDescription=='0'"> 
 
-                            <span class="float-right">
-                                <button class="btn btn-danger mb-1 mr-2" (click)="confirmStageDelete(stage.id); showStageHelp=false; newStageMessage=false; copyStageMessage=false;">{{ 'activities.button.delete_stage' | translate }}</button>
-                                <button class="mr-2 btn btn-success mb-1" (click)="copyStage(i, stage.id); showStageHelp=false; newStageMessage=false;">{{ 'activities.button.copy_stage' | translate }}</button>
+                            <span class="float-end">
+                                <button class="btn btn-danger mb-1 me-2" (click)="confirmStageDelete(stage.id); showStageHelp=false; newStageMessage=false; copyStageMessage=false;">{{ 'activities.button.delete_stage' | translate }}</button>
+                                <button class="me-2 btn btn-success mb-1" (click)="copyStage(i, stage.id); showStageHelp=false; newStageMessage=false;">{{ 'activities.button.copy_stage' | translate }}</button>
                                 <button class="btn btn-warning mb-1" (click)="editScriptStage=stage.id; deleteStageConfirmationId=0; showStageHelp=false; newStageMessage=false; copyStageMessage=false;">{{ 'activities.button.edit_stage' | translate }}</button>
                             </span>
                         </span><br/>
@@ -690,7 +701,7 @@
                             <div class="alert alert-success fadeout mt-3">{{copyStageMessageText}}</div>
                         </span>
                         <span *ngIf="deleteStageConfirmationId==stage.id">
-                            <div class="alert alert-danger mt-3" role="alert"><strong>{{ 'activities.are_you_sure_stage' | translate }}</strong> <div><button class="btn btn-danger ml-2" (click)="deleteStage(model.selectedScript, stage); deleteStageConfirmationId=0; showStageHelp=false;">{{ 'activities.button.ok' | translate }}</button> <button class="btn btn-secondary ml-2" (click)="deleteStageConfirmationId=0; showStageHelp=false;">{{ 'activities.button.cancel' | translate }}</button></div></div>
+                            <div class="alert alert-danger mt-3" role="alert"><strong>{{ 'activities.are_you_sure_stage' | translate }}</strong> <div><button class="btn btn-danger ms-2" (click)="deleteStage(model.selectedScript, stage); deleteStageConfirmationId=0; showStageHelp=false;">{{ 'activities.button.ok' | translate }}</button> <button class="btn btn-secondary ms-2" (click)="deleteStageConfirmationId=0; showStageHelp=false;">{{ 'activities.button.cancel' | translate }}</button></div></div>
                         </span>
                     </span>
                     </td>
@@ -706,7 +717,7 @@
                         {{i+1}}<br/>
                         <div class="row">
                             <div class="col-sm-2" style="min-width: 8em;">
-                                <span class="font-weight-bold">{{ 'activities.prompt.type' | translate }}:</span>
+                                <span class="fw-bold">{{ 'activities.prompt.type' | translate }}:</span>
                             </div>
                             <div class="col-sm">
                                 <span>{{translate_stage_type(stage.stagetype)}}</span>
@@ -714,7 +725,7 @@
                         </div>
                         <div class="row">
                             <div class="col-sm-2" style="min-width: 8em;">
-                                <span class="font-weight-bold">{{ 'activities.prompt.title' | translate }}:</span>
+                                <span class="fw-bold">{{ 'activities.prompt.title' | translate }}:</span>
                             </div>
                             <div class="col-sm">
                                 <textarea rows="1" class="form-control" [(ngModel)]="stage.title"></textarea>
@@ -722,7 +733,7 @@
                         </div>
                         <div class="row">
                                 <div class="col-sm-2" style="min-width: 8em;">
-                                    <span class="font-weight-bold">{{ 'activities.prompt.artworks' | translate }}: </span>
+                                    <span class="fw-bold">{{ 'activities.prompt.artworks' | translate }}: </span>
                                 </div>
                                 <div class="row itemsBlock pt-2">
                                     <div *ngFor="let artwork of getArtworksFromIds(model.selectedScript.name, model.selectedScript.artworkids, model.selectedScript)" class="col-md-4 col-sm-6 col-12 pb-3">
@@ -748,7 +759,7 @@
                                                 </div>
                                                 <div class="row">
                                                     <label class="form-check-label"> 
-                                                    <div class="ml-3">
+                                                    <div class="ms-3">
                                                         <div class="row text-left" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="artwork.name"></div>
                                                         <strong><div class="row text-left" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="artwork.artist"></div></strong>
                                                         <div class="row text-left" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="artwork.year"></div>
@@ -765,7 +776,7 @@
                                     {{ 'activities.advice.select_from_artworks_tab' | translate }}
                                 </div>
                                 <!-- <table>
-                                    <tr *ngFor="let artwork of getArtworksFromIds(model.selectedScript.name, model.selectedScript.artworkids, model.selectedScript)" class="mr-3">
+                                    <tr *ngFor="let artwork of getArtworksFromIds(model.selectedScript.name, model.selectedScript.artworkids, model.selectedScript)" class="me-3">
                                         <td class="align-middle">
                                             <div class="form-check form-check-inline">
                                                 <input
@@ -787,7 +798,7 @@
                         </div>
                         <div class="row" *ngIf='stage.stagetype=="multiquestion"'>
                             <div class="col-sm-2" style="min-width: 8em;">
-                                <span class="font-weight-bold">{{ 'activities.prompt.style' | translate }}: </span>
+                                <span class="fw-bold">{{ 'activities.prompt.style' | translate }}: </span>
                             </div>
                             <div class="col-sm">
                                 <div class="form-check form-check-inline">
@@ -799,7 +810,7 @@
                                     [(ngModel)] = "stage.sequential"
                                     />
                                 </div>
-                                <label class="form-check-label ml-1">{{ 'activities.option.questions_in_sequence' | translate }}</label><br/>
+                                <label class="form-check-label ms-1">{{ 'activities.option.questions_in_sequence' | translate }}</label><br/>
                                 <div class="form-check form-check-inline">
                                     <input
                                     type="radio"
@@ -809,13 +820,13 @@
                                     [(ngModel)] = "stage.sequential"
                                     />
                                 </div>
-                                <label class="form-check-label ml-1">{{ 'activities.option.question_shuffled' | translate }}</label>
+                                <label class="form-check-label ms-1">{{ 'activities.option.question_shuffled' | translate }}</label>
                             </div>
                         </div>
 
                         <div class="row" *ngIf='stage.stagetype=="story" || stage.stagetype=="multiquestion"'>
                             <div class="col-sm-2" style="min-width: 8em;">
-                                <span class="font-weight-bold">{{ 'activities.prompt.help_text' | translate }}:</span>
+                                <span class="fw-bold">{{ 'activities.prompt.help_text' | translate }}:</span>
                             </div>
                             <div class="col-sm">
                                 <textarea rows="3" class="form-control" [(ngModel)]="stage.help"></textarea>
@@ -824,7 +835,7 @@
 
                         <div class="row">
                             <div class="col-sm-2" style="min-width: 8em;">
-                                <span class="font-weight-bold">{{ 'activities.prompt.text' | translate }}:</span>
+                                <span class="fw-bold">{{ 'activities.prompt.text' | translate }}:</span>
                             </div>
                             <div class="col-sm">
                                 <span *ngIf='stage.stagetype!="multiquestion" && stage.stagetype!="question"'>
@@ -871,7 +882,7 @@
                                     <tr *ngFor="let option of stage.question.options; let index=index; trackBy:trackByIdx">
                                         <td>
                                             <textarea rows="1" class="form-control" [(ngModel)]="stage.question.options[index]"></textarea>
-                                        </td><td><button class="btn btn-danger float-right" (click)="deleteQuestionOption(model.selectedScript, i, index);" [disabled]="stage.question.options.length < 3">{{ 'activities.button.delete_option' | translate }}</button></td>
+                                        </td><td><button class="btn btn-danger float-end" (click)="deleteQuestionOption(model.selectedScript, i, index);" [disabled]="stage.question.options.length < 3">{{ 'activities.button.delete_option' | translate }}</button></td>
                                     </tr>
                                     <tr>
                                         <td>
@@ -891,8 +902,8 @@
                                                             <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
                                                         </svg>
                                                     </span>
-                                                    <span class="font-weight-bold">{{ 'activities.prompt.question' | translate }} {{index+1}}: </span><br/><textarea rows="3" class="form-control" [(ngModel)]="stage.questions[index].title"></textarea>
-                                                    <div class="ml-2 row">
+                                                    <span class="fw-bold">{{ 'activities.prompt.question' | translate }} {{index+1}}: </span><br/><textarea rows="3" class="form-control" [(ngModel)]="stage.questions[index].title"></textarea>
+                                                    <div class="ms-2 row">
                                                         <div class="col">
                                                             <input
                                                             class="form-check-input"
@@ -901,7 +912,7 @@
                                                             [(ngModel)] = "stage.questions[index].choice"
                                                             (click) = "checkMultiquestionOptions(model.selectedScript, i, index);"
                                                             /> 
-                                                            <label class="form-check-label ml-2">{{ 'activities.prompt.multiple_choice' | translate }}</label>
+                                                            <label class="form-check-label ms-2">{{ 'activities.prompt.multiple_choice' | translate }}</label>
                                                         </div>
                                                         <div class="col" *ngIf="stage.questions[index].choice">
                                                             <input
@@ -910,17 +921,17 @@
                                                             [value]="stage.questions[index].choice"
                                                             [(ngModel)] = "stage.questions[index].mulitselect"
                                                             /> 
-                                                            <label class="form-check-label ml-2">{{ 'activities.prompt.multiple_selections' | translate }}</label>
+                                                            <label class="form-check-label ms-2">{{ 'activities.prompt.multiple_selections' | translate }}</label>
                                                         </div>
                                                         <div class="col" style="min-width: 10em;">
-                                                            <button class="btn btn-danger float-right" (click)="deleteMultistageQuestion(model.selectedScript, i, index)" [disabled]="stage.questions.length < 3">{{ 'activities.button.delete_question' | translate }}</button>
+                                                            <button class="btn btn-danger float-end" (click)="deleteMultistageQuestion(model.selectedScript, i, index)" [disabled]="stage.questions.length < 3">{{ 'activities.button.delete_question' | translate }}</button>
                                                         </div>
                                                     </div>
                                                     <table *ngIf='stage.stagetype=="multiquestion" && stage.questions[index].choice' style="width: 100%; background-color:#EEEEEE;">
                                                         <tr *ngFor="let option of stage.questions[index].options; let oi=index; trackBy:trackByIdx">
                                                             <td>
                                                                 <textarea rows="1" class="form-control" [(ngModel)]="stage.questions[index].options[oi]"></textarea>
-                                                            </td><td><button class="btn btn-danger float-right" (click)="deleteMultiquestionOption(model.selectedScript, i, index, oi)">{{ 'activities.button.delete_option' | translate }}</button></td>
+                                                            </td><td><button class="btn btn-danger float-end" (click)="deleteMultiquestionOption(model.selectedScript, i, index, oi)">{{ 'activities.button.delete_option' | translate }}</button></td>
                                                         </tr>
                                                         <tr *ngIf="!stage.questions[index].options.length">
                                                             <td class="alert alert-info" >
@@ -942,7 +953,7 @@
                         </div>
                         <div class="row" *ngIf='stage.stagetype=="question"'>
                             <div class="col-sm-2" style="min-width: 8em;">
-                                <span class="font-weight-bold">{{ 'activities.prompt.help_text' | translate }}:</span>
+                                <span class="fw-bold">{{ 'activities.prompt.help_text' | translate }}:</span>
                             </div>
                             <div class="col-sm">
                                 <textarea rows="3" class="form-control" [(ngModel)]="stage.help"></textarea>
@@ -954,13 +965,13 @@
                                 &nbsp;
                             </div>
                             <div class="col-sm">
-                                <button class="btn btn-success mr-3" (click)='stage.questions = stage.questions.concat(initializeNewQuestion())'>{{ 'activities.button.add_new_question' | translate }}</button>
+                                <button class="btn btn-success me-3" (click)='stage.questions = stage.questions.concat(initializeNewQuestion())'>{{ 'activities.button.add_new_question' | translate }}</button>
                             </div>
                         </div>
                         
                       
                         <span>
-                            <button class="btn btn-warning float-right mt-1 mb-1" (click)="editScriptStage=0; saveScript(model.selectedScript)">{{ 'activities.button.save_stage' | translate }}</button><br/>
+                            <button class="btn btn-warning float-end mt-1 mb-1" (click)="editScriptStage=0; saveScript(model.selectedScript)">{{ 'activities.button.save_stage' | translate }}</button><br/>
                         </span>
                     </span>
                 </td>
@@ -980,7 +991,7 @@
                     {{ 'activities.help.themes' | translate }}
                 </p>
                 <div *ngFor="let theme of getThemes()" class="form-check form-check-inline pr-3 pb-2">
-                    <!-- <span style="float: left;" class="mr-2 form-check form-check-inline"> -->
+                    <!-- <span style="float: left;" class="me-2 form-check form-check-inline"> -->
                     <input
                     class="form-check-input"
                     type="checkbox"
@@ -1003,7 +1014,7 @@
 
                 <div class="row pb-3">
                     <div class="col-sm-3" style="min-width: 7em;">
-                        <span class="font-weight-bold">{{ 'activities.prompt.title' | translate }}: </span>
+                        <span class="fw-bold">{{ 'activities.prompt.title' | translate }}: </span>
                     </div>
                     <div class="col-sm">
                         <textarea rows="2" class="form-control" [(ngModel)]="model.selectedScript.name" (change)="saveScript(model.selectedScript)"></textarea>
@@ -1012,7 +1023,7 @@
 
                 <div class="row pb-3">
                     <div class="col-sm-3" style="min-width: 7em;">
-                        <span class="font-weight-bold">{{ 'activities.prompt.description' | translate }}:</span>
+                        <span class="fw-bold">{{ 'activities.prompt.description' | translate }}:</span>
                     </div>
                     <div class="col-sm">
                         <textarea rows="3" class="form-control" [(ngModel)]="model.selectedScript.description" (change)="saveScript(model.selectedScript)"></textarea>
@@ -1022,7 +1033,7 @@
 
                 <div class="row pb-3">
                     <div class="col-sm-3" style="min-width: 7em;">
-                        <span class="font-weight-bold">{{ 'activities.prompt.homepage_artwork' | translate }}: </span>
+                        <span class="fw-bold">{{ 'activities.prompt.homepage_artwork' | translate }}: </span>
                     </div>
                     
                     <div class="col-sm">
@@ -1055,7 +1066,7 @@
                 <p>
                     Shuffle selected stages each time the activity is used.
                 </p>
-                <div *ngFor="let stage of model.selectedScript.stages; let i = index" class="form-check mr-1 pb-2 ml-2">
+                <div *ngFor="let stage of model.selectedScript.stages; let i = index" class="form-check me-1 pb-2 ms-2">
                     <input 
                     class="form-check-input"
                     type="checkbox"
@@ -1071,7 +1082,7 @@
                 </p>
                 <ng-container *ngFor="let stage of model.selectedScript.stages; let i = index">
                     <ng-container *ngIf="stage.stagetype != 'statement'">
-                        <div class="form-check mr-1 pb-2 ml-2">
+                        <div class="form-check me-1 pb-2 ms-2">
                             <input 
                             class="form-check-input"
                             type="checkbox"
@@ -1092,7 +1103,7 @@
                 <p>
                     Choose any exhibitions related to your activity.
                 </p>
-                <div *ngFor="let exhibition of getExhibitions()" class="form-check mr-1 pb-2 ml-2">
+                <div *ngFor="let exhibition of getExhibitions()" class="form-check me-1 pb-2 ms-2">
                     <input
                     class="form-check-input"
                     type="checkbox"
