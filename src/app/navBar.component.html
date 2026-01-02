@@ -1,102 +1,172 @@
 <nav class="navbar navbar-dark bg-dark pl-4 m-0">
   <div class= "container-fluid p-0 m-0" style="width: 100%;">
       <div class="row p-0 m-0" style="width:100%">
-        <div class="col-6 p-0 m-0">
+        <div class="col-4 p-0 m-0">
           <a *ngIf="!(themeNav || activityNav)" class="navbar-brand" routerLink="/home">{{ 'deep_pockets' | translate }}</a>
-          <a *ngIf="themeNav" class="navbar-brand" [routerLink]="['/','themeLanding',themeNav]" [queryParams]="{themenav:themeNav}">{{configSettings.navbar_text}}</a>
-          <a *ngIf="activityNav" class="navbar-brand" [routerLink]="['/','landing',activityNav]" [queryParams]="{activitynav:activityNav}">{{configSettings.navbar_text}}</a>
+          <a *ngIf="themeNav" class="navbar-brand" [routerLink]="['/','themeLanding',themeNav]" [queryParams]="{themenav:themeNav}">{{ 'deep_pockets' | translate }}</a>
+          <a *ngIf="activityNav" class="navbar-brand" [routerLink]="['/','landing',activityNav]" [queryParams]="{activitynav:activityNav}">{{ 'deep_pockets' | translate }}</a>
         </div>
-        <div class="col-6 text-end">
-          <span style="color: white;" class="small"><a style="cursor: pointer;" (click)="useLanguage('en');">English</a>&nbsp;<a style="cursor: pointer;" (click)="useLanguage('cy')">Cymraeg</a></span>&nbsp;
- 
+        <div class="col-8 text-end">
+
+              <ng-container *ngIf="themeNav">
+                <span class="small" style="color: white; cursor: pointer;" (click)="useLanguage('en');">
+                  English&nbsp;
+                </span>
+                <span class="small" style="color: white; cursor: pointer;" (click)="useLanguage('cy');">
+                  Cymraeg&nbsp;
+                </span>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                  <ul class="navbar-nav me-auto">
+                      <li class="nav-item">
+                          <a class="nav-link" [routerLink]="['/','themeLanding',themeNav]" [queryParams]="{themenav:themeNav}" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">{{ 'menu.home' | translate }}</a>
+                      </li>
+                  </ul>
+                </div>
+              </ng-container>
+
+              <ng-container *ngIf="activityNav">
+                <span class="small" style="color: white; cursor: pointer;" (click)="useLanguage('en');">
+                  English&nbsp;
+                </span>
+                <span class="small" style="color: white; cursor: pointer;" (click)="useLanguage('cy');">
+                  Cymraeg&nbsp;
+                </span>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                  <ul class="navbar-nav me-auto">
+                      <li class="nav-item">
+                          <a class="nav-link" [routerLink]="['/','landing',activityNav]" [queryParams]="{activitynav:activityNav}" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">{{ 'menu.home' | translate }}</a>
+                      </li>
+                  </ul>
+                </div>
+              </ng-container>
+
+              <ng-container *ngIf="!(themeNav || activityNav)">
+                <span class="small" style="color: white; cursor: pointer;" (click)="useLanguage('en');">
+                  English&nbsp;
+                </span>
+                <span class="small" style="color: white; cursor: pointer;" (click)="useLanguage('cy');">
+                  Cymraeg&nbsp;
+                </span>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                  <ul class="navbar-nav me-auto">
+                      <li class="nav-item">
+                          <a class="nav-link" routerLink="/home" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">{{ 'menu.home' | translate }}</a>
+                      </li>
+                      <li *ngIf="!isLoggedOut()" class="nav-item">
+                        <a class="nav-link" routerLink="/wizard" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">{{ 'menu.my_activities' | translate }}</a>
+                      </li>
+                      <li *ngIf="!isLoggedOut()" class="nav-item">
+                        <a class="nav-link" routerLink="/artworks" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">{{configSettings.navbar_menu5}}</a>
+                      </li>
+                      <li *ngIf="!isLoggedOut()" class="nav-item">
+                        <a class="nav-link" routerLink="/themes" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">{{ 'menu.themes' | translate }}</a>
+                      </li>
+                      <li *ngIf="!isLoggedOut()" class="nav-item">
+                        <a class="nav-link" routerLink="/management" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">{{ 'menu.management' | translate }}</a>
+                      </li>
+                      <li *ngIf="isAdmin()" class="nav-item">
+                        <a class="nav-link" routerLink="/collection" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">{{ 'menu.collection' | translate }}</a>
+                      </li>
+                      <li *ngIf="isAdmin()" class="nav-item">
+                        <a class="nav-link" routerLink="/users" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">{{ 'menu.users' | translate }}</a>
+                      </li>
+                      <li *ngIf="isLoggedOut()" class="nav-item">
+                        <a class="nav-link" routerLink="/login" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">{{ 'menu.login' | translate }}</a>
+                        </li>
+                      <li *ngIf="!isLoggedOut()" class="nav-item">
+                        <a class="nav-link" routerLink="/login" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">{{getCurrentUsername()}}</a>
+                      </li>
+                  </ul>
+                </div>
+              </ng-container>
+
           
-          
+          <!-- <div class="row">
+            <div class="col-5 small" style="color: white;">
+              <div class="row">
+                <div class="col-sm">
+                  <span><a style="cursor: pointer;" (click)="useLanguage('en');">English</a></span>
+                </div>
+                <div class="col-sm text-start">
+                  <span><a style="cursor: pointer;" (click)="useLanguage('cy')">Cymraeg</a></span>
+                </div>
+              </div>
+            </div>
+            <div class="col-7 text-end">
+              <ng-container *ngIf="themeNav">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                  <ul class="navbar-nav me-auto">
+                      <li class="nav-item">
+                          <a class="nav-link" [routerLink]="['/','themeLanding',themeNav]" [queryParams]="{themenav:themeNav}" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">{{ 'menu.home' | translate }}</a>
+                      </li>
+                  </ul>
+                </div>
+              </ng-container>
 
-      <ng-container *ngIf="themeNav">
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto">
-              <li class="nav-item">
-                  <a class="nav-link" [routerLink]="['/','themeLanding',themeNav]" [queryParams]="{themenav:themeNav}" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">Home</a>
-              </li>
-          </ul>
+              <ng-container *ngIf="activityNav">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                  <ul class="navbar-nav me-auto">
+                      <li class="nav-item">
+                          <a class="nav-link" [routerLink]="['/','landing',activityNav]" [queryParams]="{activitynav:activityNav}" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">{{ 'menu.home' | translate }}</a>
+                      </li>
+                  </ul>
+                </div>
+              </ng-container>
+              
+              <ng-container *ngIf="!(themeNav || activityNav)">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                  <ul class="navbar-nav me-auto">
+                      <li class="nav-item">
+                          <a class="nav-link" routerLink="/home" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">{{ 'menu.home' | translate }}</a>
+                      </li>
+                      <li *ngIf="!isLoggedOut()" class="nav-item">
+                        <a class="nav-link" routerLink="/wizard" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">{{ 'menu.my_activities' | translate }}</a>
+                      </li>
+                      <li *ngIf="!isLoggedOut()" class="nav-item">
+                        <a class="nav-link" routerLink="/artworks" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">{{configSettings.navbar_menu5}}</a>
+                      </li>
+                      <li *ngIf="!isLoggedOut()" class="nav-item">
+                        <a class="nav-link" routerLink="/themes" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">{{ 'menu.themes' | translate }}</a>
+                      </li>
+                      <li *ngIf="!isLoggedOut()" class="nav-item">
+                        <a class="nav-link" routerLink="/management" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">{{ 'menu.management' | translate }}</a>
+                      </li>
+                      <li *ngIf="isAdmin()" class="nav-item">
+                        <a class="nav-link" routerLink="/collection" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">{{ 'menu.collection' | translate }}</a>
+                      </li>
+                      <li *ngIf="isAdmin()" class="nav-item">
+                        <a class="nav-link" routerLink="/users" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">{{ 'menu.users' | translate }}</a>
+                      </li>
+                      <li *ngIf="isLoggedOut()" class="nav-item">
+                        <a class="nav-link" routerLink="/login" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">{{ 'menu.login' | translate }}</a>
+                        </li>
+                      <li *ngIf="!isLoggedOut()" class="nav-item">
+                        <a class="nav-link" routerLink="/login" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">{{getCurrentUsername()}}</a>
+                      </li>
+                  </ul>
+                </div>
+              </ng-container>
+            </div>
+          </div> -->
         </div>
-      </ng-container>
-
-      <ng-container *ngIf="activityNav">
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto">
-              <li class="nav-item">
-                  <a class="nav-link" [routerLink]="['/','landing',activityNav]" [queryParams]="{activitynav:activityNav}" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">Home</a>
-              </li>
-          </ul>
-        </div>
-      </ng-container>
-      
-      <ng-container *ngIf="!(themeNav || activityNav)">
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto">
-              <li class="nav-item">
-                  <a class="nav-link" routerLink="/home" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">{{ 'menu.home' | translate }}</a>
-              </li>
-              <!-- <li class="nav-item">
-                <a class="nav-link" routerLink="/gallery" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">All scripts</a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link" routerLink="/otherPeople" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">All responses</a>
-              </li> -->
-              <li *ngIf="!isLoggedOut()" class="nav-item">
-                <a class="nav-link" routerLink="/wizard" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">{{ 'menu.my_activities' | translate }}</a>
-              </li>
-              <li *ngIf="!isLoggedOut()" class="nav-item">
-                <a class="nav-link" routerLink="/artworks" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">{{configSettings.navbar_menu5}}</a>
-              </li>
-              <li *ngIf="!isLoggedOut()" class="nav-item">
-                <a class="nav-link" routerLink="/themes" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">{{ 'menu.themes' | translate }}</a>
-              </li>
-              <li *ngIf="!isLoggedOut()" class="nav-item">
-                <a class="nav-link" routerLink="/management" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">{{ 'menu.management' | translate }}</a>
-              </li>
-              <!-- <li *ngIf="!isLoggedOut()" class="nav-item">
-                <a class="nav-link" routerLink="/selector" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">Scriptsets</a>
-              </li> -->
-              <!-- <li *ngIf="isAdmin()" class="nav-item">
-                <a class="nav-link" routerLink="/authoring" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">Advanced</a>
-              </li> -->
-              <li *ngIf="isAdmin()" class="nav-item">
-                <a class="nav-link" routerLink="/collection" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">{{ 'menu.collection' | translate }}</a>
-              </li>
-              <li *ngIf="isAdmin()" class="nav-item">
-                <a class="nav-link" routerLink="/users" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">{{ 'menu.users' | translate }}</a>
-              </li>
-              <!-- <li *ngIf="isAdmin()" class="nav-item">
-                <a class="nav-link" routerLink="/exhibitions" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">Exhibitions</a>
-              </li> -->
-              <li *ngIf="isLoggedOut()" class="nav-item">
-                <a class="nav-link" routerLink="/login" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">{{ 'menu.login' | translate }}</a>
-                </li>
-              <li *ngIf="!isLoggedOut()" class="nav-item">
-                <a class="nav-link" routerLink="/login" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">{{getCurrentUsername()}}</a>
-              </li>
-          </ul>
-        </div>
-      </ng-container>
-
-        </div>
-      </div>
-
-      <!-- <a *ngFor="let language of configSettings.translations" class="navbar-nav" [routerLink]="language.route">{{language.code}}</a> -->
-      <!-- <a class="navbar-brand float-right" style="font-size: small;">Cymraeg</a> -->
-      
-
-   
+      </div>   
     </div>
   </nav>
