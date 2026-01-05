@@ -1,4 +1,4 @@
-<nav class="navbar navbar-dark bg-dark pl-3 pr-0 m-0">
+<nav class="container-fluid navbar navbar-dark bg-dark pl-3 pr-0 m-0">
   <div class= "container-fluid p-0 m-0" style="width: 100%;">
       <div class="row p-0 m-0" style="width:100%">
         <div class="col-4 p-0 m-0">
@@ -9,11 +9,11 @@
         <div class="col-8 text-end">
 
               <ng-container *ngIf="themeNav">
-                <span class="small" style="color: white; cursor: pointer;" (click)="useLanguage('en');">
-                  English&nbsp;
+                <span *ngIf="chosenlang()=='cy'" class="small" style="color: white; cursor: pointer;" (click)="useLanguage('en');">
+                  English&nbsp;&nbsp;
                 </span>
-                <span class="small" style="color: white; cursor: pointer;" (click)="useLanguage('cy');">
-                  Cymraeg&nbsp;
+                <span *ngIf="chosenlang()=='en'" class="small" style="color: white; cursor: pointer;" (click)="useLanguage('cy');">
+                  Cymraeg&nbsp;&nbsp;
                 </span>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                   <span class="navbar-toggler-icon"></span>
@@ -28,11 +28,11 @@
               </ng-container>
 
               <ng-container *ngIf="activityNav">
-                <span class="small" style="color: white; cursor: pointer;" (click)="useLanguage('en');">
-                  English&nbsp;
+                <span *ngIf="chosenlang()=='cy'" class="small" class="small" style="color: white; cursor: pointer;" (click)="useLanguage('en');">
+                  English&nbsp;&nbsp;
                 </span>
-                <span class="small" style="color: white; cursor: pointer;" (click)="useLanguage('cy');">
-                  Cymraeg&nbsp;
+                <span *ngIf="chosenlang()=='en'" class="small" style="color: white; cursor: pointer;" (click)="useLanguage('cy');">
+                  Cymraeg&nbsp;&nbsp;
                 </span>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                   <span class="navbar-toggler-icon"></span>
@@ -47,11 +47,11 @@
               </ng-container>
 
               <ng-container *ngIf="!(themeNav || activityNav)">
-                <span class="small" style="color: white; cursor: pointer;" (click)="useLanguage('en');">
-                  English&nbsp;
+                <span *ngIf="chosenlang()=='cy'" class="small" class="small" style="color: white; cursor: pointer;" (click)="useLanguage('en');">
+                  English&nbsp;&nbsp;
                 </span>
-                <span class="small" style="color: white; cursor: pointer;" (click)="useLanguage('cy');">
-                  Cymraeg&nbsp;
+                <span *ngIf="chosenlang()=='en'" class="small" style="color: white; cursor: pointer;" (click)="useLanguage('cy');">
+                  Cymraeg&nbsp;&nbsp;
                 </span>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                   <span class="navbar-toggler-icon"></span>

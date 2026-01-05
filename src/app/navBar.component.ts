@@ -50,7 +50,9 @@ export class NavBarComponent implements OnInit {
 
     private translate = inject(TranslateService);
 
-    chosenlang = this.translate.currentLang;
+    chosenlang() {
+        return this.translate.currentLang;
+    }
 
     limited_menu: string = '';
 
