@@ -8,9 +8,12 @@
         <div class="col-sm-6">
             <p class="lead">{{ 'activities.para' | translate }}</p>
         </div>
-        <div class="col-sm-6 text-end pb-2">
+        <div *ngIf="model.viewScript=='0'" class="col-sm-6 text-end pb-2">
             <input class="form-check-input" type="checkbox" [checked]="includeNavigation" [(ngModel)]="includeNavigation">
             <span class="fs-6">&nbsp;{{ 'activities.option.include_full_menu' | translate }}</span>
+        </div>
+        <div *ngIf="model.viewScript!='0'" class="col-sm-6 text-end pb-2">
+            &nbsp;
         </div>
     </div>
     <ng-container *ngIf="!isLoggedOut()">
@@ -801,7 +804,7 @@
                                 <span class="fw-bold">{{ 'activities.prompt.style' | translate }}: </span>
                             </div>
                             <div class="col-sm">
-                                <div class="form-check form-check-inline">
+                                <div class="form-check">
                                     <input
                                     type="radio"
                                     class="form-check-input"
@@ -809,9 +812,10 @@
                                     name="sequential"
                                     [(ngModel)] = "stage.sequential"
                                     />
-                                </div>
                                 <label class="form-check-label ms-1">{{ 'activities.option.questions_in_sequence' | translate }}</label><br/>
-                                <div class="form-check form-check-inline">
+                                </div>
+                                
+                                <div class="form-check">
                                     <input
                                     type="radio"
                                     class="form-check-input"
@@ -819,8 +823,9 @@
                                     name="sequential"
                                     [(ngModel)] = "stage.sequential"
                                     />
-                                </div>
                                 <label class="form-check-label ms-1">{{ 'activities.option.question_shuffled' | translate }}</label>
+                                </div>
+                                
                             </div>
                         </div>
 

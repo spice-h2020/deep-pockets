@@ -4,7 +4,7 @@
     </div>
 </div> -->
 <paNavBar></paNavBar>
-<div style="width: 100%; background-color: white;" class="border pt-3 text-black">
+<div style="width: 100%; background-color: white;" class="container-fluid border pt-3 text-black">
 <div *ngFor="let script of getScriptsOfScriptID(slowLookingScript); let i = index" class="col-sm-12 pb-4">
     <ng-container *ngIf="getArtworkFromId(script.homepageartworkid).length > 0">
         <div *ngFor="let artwork of getArtworkFromId(script.homepageartworkid);" style="width: 100%;">

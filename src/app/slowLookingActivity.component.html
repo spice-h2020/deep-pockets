@@ -7,14 +7,50 @@
 <ng-container *ngFor="let stage of currentScript.stages; let i = index">
     <ng-container *ngIf="slowLookingCurrentScriptStageIndex == i">
         <div *ngIf="stage.stagetype == 'statement'">  
-            <h2>{{stage.title}}</h2>
-
-            <div>
-                <ng-container *ngIf="getArtworksFromIds(stage.includeartworks).length > 0">
-                    <div *ngFor="let artwork of getArtworksFromIds(stage.includeartworks).slice(0,1); let first = first" class="row align-items-end mb-3">
+            <div class="container-fluid">
+                <h2>{{stage.title}}</h2>
+            
+                    <ng-container *ngIf="getArtworksFromIds(stage.includeartworks).length > 0">
+                        <div *ngFor="let artwork of getArtworksFromIds(stage.includeartworks).slice(0,1); let first = first" class="row align-items-end mb-3">
+                            <div class="col-sm-6">
+                                <div class="row" *ngIf="artwork.url">
+                                        <img src="{{artwork.url}}" class="img-fluid" alt="{{artwork.name}}" (click)="startLightbox(artwork.url)" style="cursor: pointer;" (error)="handleMissingImage($event)">
+                                </div>
+                                <div class="row" *ngIf="!artwork.url && artwork.fileLocation">
+                                    <img src="{{artwork.fileLocation}}" style="cursor: pointer;" (error)="handleMissingImage($event)">
+                                </div>
+                            </div>
+                            <div class="col-sm ms-3">
+                                <div class="col-sm-12">
+                                    <div class="row text-start" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="artwork.name"></div>
+                                    <strong><div class="row text-start" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="artwork.artist"></div></strong>
+                                    <div class="row text-start" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="artwork.year"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngIf="getArtworksFromIds(stage.includeartworks).length > 1">
+                        <div class="row itemsBlock">
+                            <div *ngFor="let artwork of getArtworksFromIds(stage.includeartworks).slice(1);" class="col-md-4 col-sm-6 col-12 pb-3">
+                                <div class="row">
+                                    <div class="container"> 
+                                        <img src="{{artwork.url}}" class="img-fluid" alt="{{artwork.name}}" (click)="startLightbox(artwork.url)" style="height: auto; width: 100%; cursor: pointer;" (error)="handleMissingImage($event)">
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="container">
+                                        <div class="row text-start" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="artwork.name"></div>
+                                        <strong><div class="row text-start" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="artwork.artist"></div></strong>
+                                        <div class="row text-start" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="artwork.year"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                    <!-- <div *ngFor="let artwork of getArtworksFromIds(stage.includeartworks);" class="row align-items-end mb-3">
                         <div class="col-sm-6">
                             <div class="row" *ngIf="artwork.url">
-                                    <img src="{{artwork.url}}" class="img-fluid" alt="{{artwork.name}}" (click)="startLightbox(artwork.url)" style="cursor: pointer;" (error)="handleMissingImage($event)">
+                                <img src="{{artwork.url}}" alt="{{artwork.name}}" (click)="startLightbox(artwork.url)" style="cursor: pointer;" (error)="handleMissingImage($event)">
                             </div>
                             <div class="row" *ngIf="!artwork.url && artwork.fileLocation">
                                 <img src="{{artwork.fileLocation}}" style="cursor: pointer;" (error)="handleMissingImage($event)">
@@ -22,73 +58,37 @@
                         </div>
                         <div class="col-sm">
                             <div class="col-sm-12">
-                                <div class="row text-left" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="artwork.name"></div>
-                                <strong><div class="row text-left" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="artwork.artist"></div></strong>
-                                <div class="row text-left" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="artwork.year"></div>
+                                <div class="row text-start" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="artwork.name"></div>
+                                <strong><div class="row text-start" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="artwork.artist"></div></strong>
+                                <div class="row text-start" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="artwork.year"></div>
                             </div>
                         </div>
-                    </div>
-                </ng-container>
-                <ng-container *ngIf="getArtworksFromIds(stage.includeartworks).length > 1">
-                    <div class="row itemsBlock">
-                        <div *ngFor="let artwork of getArtworksFromIds(stage.includeartworks).slice(1);" class="col-md-4 col-sm-6 col-12 pb-3">
-                            <div class="row">
-                                <div class="container">
-                                    <img src="{{artwork.url}}" class="img-fluid" alt="{{artwork.name}}" (click)="startLightbox(artwork.url)" style="height: auto; width: 100%; cursor: pointer;" (error)="handleMissingImage($event)">
-                                </div>
-                            </div>
-                            <div>
-                                <div class="container">
-                                    <div class="row text-left" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="artwork.name"></div>
-                                    <strong><div class="row text-left" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="artwork.artist"></div></strong>
-                                    <div class="row text-left" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="artwork.year"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </ng-container>
-                <!-- <div *ngFor="let artwork of getArtworksFromIds(stage.includeartworks);" class="row align-items-end mb-3">
-                    <div class="col-sm-6">
-                        <div class="row" *ngIf="artwork.url">
-                            <img src="{{artwork.url}}" alt="{{artwork.name}}" (click)="startLightbox(artwork.url)" style="cursor: pointer;" (error)="handleMissingImage($event)">
-                        </div>
-                        <div class="row" *ngIf="!artwork.url && artwork.fileLocation">
-                            <img src="{{artwork.fileLocation}}" style="cursor: pointer;" (error)="handleMissingImage($event)">
-                        </div>
-                    </div>
-                    <div class="col-sm">
-                        <div class="col-sm-12">
-                            <div class="row text-left" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="artwork.name"></div>
-                            <strong><div class="row text-left" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="artwork.artist"></div></strong>
-                            <div class="row text-left" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="artwork.year"></div>
-                        </div>
-                    </div>
-                </div> -->
+                    </div> -->
+
+                <p class="text-break" style="white-space: pre-wrap;" [innerHTML]="stage.body | linkifyHtml"></p>
             </div>
-
-            <p class="text-break" style="white-space: pre-wrap;" [innerHTML]="stage.body | linkifyHtml"></p>
-
-            <div *ngIf="slowLookingMaximumScriptStageIndex == i" class="row bg-light border-top">
-                <div class="text-left col-sm-6">
-                    <figcaption class="mt-2 text-left blockquote-footer mb-0">{{currentScript.author}}</figcaption>
+            <div *ngIf="slowLookingMaximumScriptStageIndex == i" class="container-fluid row bg-light border-top m-0 p-0">
+                <div class="text-start col-sm-6">
+                    <figcaption class="mt-2 text-start blockquote-footer mb-0">{{currentScript.author}}</figcaption>
                 </div>
-                <div class="text-right col-sm-6 mb-3 mt-sm-3">
-                    <button class="mr-2 btn btn-secondary" *ngIf="i != 0" (click)="statementBack(i);"><i class="fa fa-chevron-left" aria-hidden="true"></i> {{ 'activity.button.back' | translate }}</button>
+                <div class="text-end col-sm-6 mb-3 mt-sm-3">
+                    <button class="me-2 btn btn-secondary" *ngIf="i != 0" (click)="statementBack(i);"><i class="fa fa-chevron-left" aria-hidden="true"></i> {{ 'activity.button.back' | translate }}</button>
                     <button class="btn btn-secondary" (click)="statementEnd();" [routerLink]="routerLink" [queryParams]="getQueryParams()">{{ 'activity.button.finish' | translate }} <i class="fa fa-chevron-right" aria-hidden="true"></i></button>
                 </div>
                 <!-- <div class="text-right mb-3">
                     <span *ngIf="!statementOnlyScript(currentScript)" class="fs-6" style="color: rgb(89, 98, 105);">Press <strong>Close</strong> to save your response</span>
                 </div> -->
             </div>
-            <div *ngIf="slowLookingMaximumScriptStageIndex != i" class="row bg-light border-top">
-                <div class="text-left col-sm-6">
+            <div *ngIf="slowLookingMaximumScriptStageIndex != i" class="container-fluid row bg-light border-top m-0 p-0">
+                <div class="text-start col-sm-6">
                     <figcaption class="mt-2 blockquote-footer mb-0">{{currentScript.author}}</figcaption>
                 </div>
-                <div class="text-right col-sm-6 mb-3 mt-sm-3">
-                    <button class="mr-2 btn btn-secondary" *ngIf="i != 0" (click)="statementBack(i);"><i class="fa fa-chevron-left" aria-hidden="true"></i> {{ 'activity.button.back' | translate }}</button>
+                <div class="text-end col-sm-6 mb-3 mt-sm-3">
+                    <button class="me-2 btn btn-secondary" *ngIf="i != 0" (click)="statementBack(i);"><i class="fa fa-chevron-left" aria-hidden="true"></i> {{ 'activity.button.back' | translate }}</button>
                     <button *ngIf="slowLookingMaximumScriptStageIndex != i" class="btn btn-secondary" (click)="statementContinue(i);">{{ 'activity.button.continue' | translate }} <i class="fa fa-chevron-right" aria-hidden="true"></i></button>
                 </div>
             </div>
+            
         </div>
 
         <div *ngIf="stage.stagetype == 'multiquestion'" class="form-group"> 
@@ -98,56 +98,58 @@
                 <!-- {{intialiseMultiquestionAction(stage, stage.body)}} -->
 
                 <!-- show title and question  -->
-                <h2>{{stage.title}}</h2>
+                <div class="container-fluid">
+                    <h2>{{stage.title}}</h2>
 
-                <div>
-                    <!-- show included artworks -->
-                    <ng-container *ngIf="getArtworksFromIds(stage.includeartworks).length > 0">
-                        <div *ngFor="let artwork of getArtworksFromIds(stage.includeartworks).slice(0,1); let first = first" class="row align-items-end mb-3">
-                            <div class="col-sm-6">
-                                <div class="row" *ngIf="artwork.url">
-                                    <!-- <div class="container"> -->
-                                        <img src="{{artwork.url}}" class="img-fluid" alt="{{artwork.name}}" (click)="startLightbox(artwork.url)" style="cursor: pointer;" (error)="handleMissingImage($event)">
-                                    <!-- </div> -->
-                                </div>
-                                <div class="row" *ngIf="!artwork.url && artwork.fileLocation">
-                                    <img src="{{artwork.fileLocation}}" style="cursor: pointer;" (error)="handleMissingImage($event)">
-                                </div>
-                            </div>
-                            <div class="col-sm">
-                                <div class="col-sm-12">
-                                    <div class="row text-left" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="artwork.name"></div>
-                                    <strong><div class="row text-left" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="artwork.artist"></div></strong>
-                                    <div class="row text-left" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="artwork.year"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </ng-container>
-                    <ng-container *ngIf="getArtworksFromIds(stage.includeartworks).length > 1">
-                        <div class="row itemsBlock">
-                            <div *ngFor="let artwork of getArtworksFromIds(stage.includeartworks).slice(1);" class="col-md-4 col-sm-6 col-12 pb-3">
-                                <div class="row">
-                                    <div class="container">
-                                        <img src="{{artwork.url}}" class="img-fluid" alt="{{artwork.name}}" (click)="startLightbox(artwork.url)" style="height: auto; width: 100%; cursor: pointer;" (error)="handleMissingImage($event)">
+                    <div>
+                        <!-- show included artworks -->
+                        <ng-container *ngIf="getArtworksFromIds(stage.includeartworks).length > 0">
+                            <div *ngFor="let artwork of getArtworksFromIds(stage.includeartworks).slice(0,1); let first = first" class="row align-items-end mb-3">
+                                <div class="col-sm-6">
+                                    <div class="row" *ngIf="artwork.url">
+                                        <!-- <div class="container"> -->
+                                            <img src="{{artwork.url}}" class="img-fluid" alt="{{artwork.name}}" (click)="startLightbox(artwork.url)" style="cursor: pointer;" (error)="handleMissingImage($event)">
+                                        <!-- </div> -->
+                                    </div>
+                                    <div class="row" *ngIf="!artwork.url && artwork.fileLocation">
+                                        <img src="{{artwork.fileLocation}}" style="cursor: pointer;" (error)="handleMissingImage($event)">
                                     </div>
                                 </div>
-                                <div>
-                                    <div class="container">
-                                        <div class="row text-left" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="artwork.name"></div>
-                                        <strong><div class="row text-left" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="artwork.artist"></div></strong>
-                                        <div class="row text-left" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="artwork.year"></div>
+                                <div class="col-sm">
+                                    <div class="col-sm-12">
+                                        <div class="row text-start" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="artwork.name"></div>
+                                        <strong><div class="row text-start" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="artwork.artist"></div></strong>
+                                        <div class="row text-start" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="artwork.year"></div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </ng-container>
+                        </ng-container>
+                        <ng-container *ngIf="getArtworksFromIds(stage.includeartworks).length > 1">
+                            <div class="row itemsBlock">
+                                <div *ngFor="let artwork of getArtworksFromIds(stage.includeartworks).slice(1);" class="col-md-4 col-sm-6 col-12 pb-3">
+                                    <div class="row">
+                                        <div class="container">
+                                            <img src="{{artwork.url}}" class="img-fluid" alt="{{artwork.name}}" (click)="startLightbox(artwork.url)" style="height: auto; width: 100%; cursor: pointer;" (error)="handleMissingImage($event)">
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="container">
+                                            <div class="row text-start" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="artwork.name"></div>
+                                            <strong><div class="row text-start" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="artwork.artist"></div></strong>
+                                            <div class="row text-start" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="artwork.year"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </div>
+
+                    <div class="alert alert-info text-break mb-0" style="white-space: pre-wrap;" [innerHTML]="stage.help | linkifyHtml" *ngIf="stage.help"></div>
+
                 </div>
-
-                <div class="alert alert-info text-break mb-0" style="white-space: pre-wrap;" [innerHTML]="stage.help | linkifyHtml" *ngIf="stage.help"></div>
-
-
                 
                     <ng-container *ngIf="stage.sequential">
+                    <div class="container-fluid">
                         <!-- <div class="col-sm-12">{{stage.body[multiquestionIndex]}}</div><br/> -->
                         <div class="alert alert-info mt-0" style="background-color: white;">
                             <p class="text-break" style="white-space: pre-wrap;" [innerHTML]="stage.questions[multiquestionIndex].title | linkifyHtml"></p>
@@ -159,7 +161,7 @@
                             </div>
                             <div *ngIf="stage.questions[multiquestionIndex].choice">
                                 <ng-container *ngIf="!stage.questions[multiquestionIndex].mulitselect">
-                                    <div *ngFor="let option of stage.questions[multiquestionIndex].options" class="form-check ml-1">
+                                    <div *ngFor="let option of stage.questions[multiquestionIndex].options" class="form-check ms-1">
                                         <input
                                             class="form-check-input"
                                             type="radio"
@@ -171,7 +173,7 @@
                                     </div>
                                 </ng-container>
                                 <ng-container *ngIf="stage.questions[multiquestionIndex].mulitselect">
-                                    <div *ngFor="let option of stage.questions[multiquestionIndex].options" class="form-check ml-1">
+                                    <div *ngFor="let option of stage.questions[multiquestionIndex].options" class="form-check ms-1">
                                         <input
                                             class="form-check-input"
                                             type="checkbox"
@@ -184,34 +186,36 @@
                                 </ng-container>
                             </div>
                             <div class="row">
-                                <div class="col-6 fs-6" style="color: rgb(89, 98, 105); width:100%;">
-                                    <ng-container *ngIf="stage.required">(required)</ng-container> 
+                                <div class="col-6 fs-6" style="color: rgb(89, 98, 105);">
+                                    <ng-container *ngIf="stage.required">(required)</ng-container> &nbsp;
                                 </div>
-                                <div class="col-6 fs-6 text-right" style="color: rgb(89, 98, 105);">
+                                <div class="col-6 fs-6 text-end" style="color: rgb(89, 98, 105);">
                                     {{multiquestionIndex+1}}/{{stage.questions.length}}
                                 </div>
+                            </div>
+                            <div class="row">
                                 <!-- <div class="col-2 mx-auto" style="min-width: 11em;"> -->
                                 <div class="mx-auto text-center" style="width: 100%;">
                                     <div class="row">
                                         <div class="col-sm-6 text-center text-sm-right p-0">
-                                            <button *ngIf="multiquestionIndex > 0" class="mb-1 mr-sm-1 btn btn-warning" style="width: 11em" (click)="updateAnswers(multiquestionIndex, answervalue.value); setAnswerValue(multiquestionIndex-1); submittedAnswer=(!stage.questions[multiquestionIndex].choice||stage.questions[multiquestionIndex].options.length > 0); decrementMultiquestionIndex();"><i class="fa fa-arrow-left" aria-hidden="true"></i> {{ 'activity.button.previous' | translate }}</button> 
+                                            <button *ngIf="multiquestionIndex > 0" class="mb-1 me-sm-1 btn btn-warning" style="width: 11em" (click)="updateAnswers(multiquestionIndex, answervalue.value); setAnswerValue(multiquestionIndex-1); submittedAnswer=(!stage.questions[multiquestionIndex].choice||stage.questions[multiquestionIndex].options.length > 0); decrementMultiquestionIndex();"><i class="fa fa-arrow-left" aria-hidden="true"></i> {{ 'activity.button.previous' | translate }}</button> 
                                         </div>
                                         <div class="col-sm-6 text-center text-sm-left p-0">
-                                            <button *ngIf="multiquestionIndex < stage.questions.length-1" class="ml-sm-1 btn btn-warning" style="width: 11em" [disabled]="stage.required && !answervalue.value" (click)="updateAnswers(multiquestionIndex, answervalue.value); setAnswerValue(multiquestionIndex+1); submittedAnswer=(!stage.questions[multiquestionIndex].choice||stage.questions[multiquestionIndex].options.length > 0); incrementMultiquestionIndex(stage.questions.length-1);">{{ 'activity.button.next' | translate }} <i class="fa fa-arrow-right" aria-hidden="true"></i></button> 
+                                            <button *ngIf="multiquestionIndex < stage.questions.length-1" class="ms-sm-1 btn btn-warning" style="width: 11em" [disabled]="stage.required && !answervalue.value" (click)="updateAnswers(multiquestionIndex, answervalue.value); setAnswerValue(multiquestionIndex+1); submittedAnswer=(!stage.questions[multiquestionIndex].choice||stage.questions[multiquestionIndex].options.length > 0); incrementMultiquestionIndex(stage.questions.length-1);">{{ 'activity.button.next' | translate }} <i class="fa fa-arrow-right" aria-hidden="true"></i></button> 
                                         </div>
                                     </div>
-                                    <!-- <span *ngIf="submittedAnswer" class="text-warning ml-1">Your last response has been saved</span><br/> -->
+                                    <!-- <span *ngIf="submittedAnswer" class="text-warning ms-1">Your last response has been saved</span><br/> -->
                                     <!-- <span *ngIf="multiquestionIndex <= 0">
-                                        <button class="mb-1 mr-1 btn btn-warning" disabled="true" (click)="updateAnswers(multiquestionIndex, answervalue.value); submittedAnswer=(!stage.questions[multiquestionIndex].choice||stage.questions[multiquestionIndex].options.length > 0);"><i class="fa fa-arrow-left" aria-hidden="true"></i> Previous question</button> 
+                                        <button class="mb-1 me-1 btn btn-warning" disabled="true" (click)="updateAnswers(multiquestionIndex, answervalue.value); submittedAnswer=(!stage.questions[multiquestionIndex].choice||stage.questions[multiquestionIndex].options.length > 0);"><i class="fa fa-arrow-left" aria-hidden="true"></i> Previous question</button> 
                                     </span>
                                     <span *ngIf="multiquestionIndex > 0">
-                                        <button class="mb-1 mr-1 btn btn-warning" [disabled]="multiquestionIndex <= 0" (click)="updateAnswers(multiquestionIndex, answervalue.value); setAnswerValue(multiquestionIndex-1); submittedAnswer=(!stage.questions[multiquestionIndex].choice||stage.questions[multiquestionIndex].options.length > 0); decrementMultiquestionIndex();"><i class="fa fa-arrow-left" aria-hidden="true"></i> Previous question</button> 
+                                        <button class="mb-1 me-1 btn btn-warning" [disabled]="multiquestionIndex <= 0" (click)="updateAnswers(multiquestionIndex, answervalue.value); setAnswerValue(multiquestionIndex-1); submittedAnswer=(!stage.questions[multiquestionIndex].choice||stage.questions[multiquestionIndex].options.length > 0); decrementMultiquestionIndex();"><i class="fa fa-arrow-left" aria-hidden="true"></i> Previous question</button> 
                                     </span>
                                     <span *ngIf="multiquestionIndex >= stage.questions.length-1">
-                                        <button class="mb-1 ml-1 btn btn-warning" disabled="true" (click)="updateAnswers(multiquestionIndex, answervalue.value); submittedAnswer=(!stage.questions[multiquestionIndex].choice||stage.questions[multiquestionIndex].options.length > 0);">Next question <i class="fa fa-arrow-right" aria-hidden="true"></i></button> 
+                                        <button class="mb-1 ms-1 btn btn-warning" disabled="true" (click)="updateAnswers(multiquestionIndex, answervalue.value); submittedAnswer=(!stage.questions[multiquestionIndex].choice||stage.questions[multiquestionIndex].options.length > 0);">Next question <i class="fa fa-arrow-right" aria-hidden="true"></i></button> 
                                     </span>
                                     <span *ngIf="multiquestionIndex < stage.questions.length-1">
-                                        <button class="mb-1 ml-1 btn btn-warning" [disabled]="multiquestionIndex >= stage.questions.length-1" (click)="updateAnswers(multiquestionIndex, answervalue.value); setAnswerValue(multiquestionIndex+1); submittedAnswer=(!stage.questions[multiquestionIndex].choice||stage.questions[multiquestionIndex].options.length > 0); incrementMultiquestionIndex(stage.questions.length-1);">Next question <i class="fa fa-arrow-right" aria-hidden="true"></i></button> 
+                                        <button class="mb-1 ms-1 btn btn-warning" [disabled]="multiquestionIndex >= stage.questions.length-1" (click)="updateAnswers(multiquestionIndex, answervalue.value); setAnswerValue(multiquestionIndex+1); submittedAnswer=(!stage.questions[multiquestionIndex].choice||stage.questions[multiquestionIndex].options.length > 0); incrementMultiquestionIndex(stage.questions.length-1);">Next question <i class="fa fa-arrow-right" aria-hidden="true"></i></button> 
                                     </span> -->
                                 </div>
                                 <!-- <div>
@@ -219,13 +223,14 @@
                                 </div> -->
                             </div>
                         </div>
+                    </div>
                         <!-- return to list if last stage -->
-                        <div *ngIf="slowLookingMaximumScriptStageIndex == i" class="row bg-light border-top">
-                            <div class="text-left col-sm-6">
-                                <figcaption class="mt-2 text-left blockquote-footer mb-0">{{currentScript.author}}</figcaption>
+                        <div *ngIf="slowLookingMaximumScriptStageIndex == i" class="container-fluid row bg-light border-top m-0 p-0">
+                            <div class="text-start col-sm-6">
+                                <figcaption class="mt-2 text-start blockquote-footer mb-0">{{currentScript.author}}</figcaption>
                             </div>
-                            <div class="text-right col-sm-6 mb-3 mt-sm-3">
-                                <button class="mr-2 btn btn-secondary" *ngIf="i != 0" (click)="multiquestionBack(multiquestionIndex, answervalue.value, stage, stage.questions, i, newMultiquestionAction)"><i class="fa fa-chevron-left" aria-hidden="true"></i> {{ 'activity.button.back' | translate }}</button>
+                            <div class="text-end col-sm-6 mb-3 mt-sm-3">
+                                <button class="me-2 btn btn-secondary" *ngIf="i != 0" (click)="multiquestionBack(multiquestionIndex, answervalue.value, stage, stage.questions, i, newMultiquestionAction)"><i class="fa fa-chevron-left" aria-hidden="true"></i> {{ 'activity.button.back' | translate }}</button>
                                 <button class="btn btn-secondary" [disabled]="stage.required && !(answervalue.value && (filterEmptyMultiquestionAnswers().length >= stage.questions.length || (!isFilledMultiquestionanswer(multiquestionIndex) && filterEmptyMultiquestionAnswers().length == stage.questions.length-1)))" (click)="multiquestionEnd(i, multiquestionIndex, answervalue.value, stage, stage.questions, newMultiquestionAction)" [routerLink]="routerLink" [queryParams]="getQueryParams()">{{ 'activity.button.finish' | translate }} <i class="fa fa-chevron-right" aria-hidden="true"></i></button>
                             </div>
                             <!-- <div class="text-right mb-3">
@@ -233,81 +238,85 @@
                             </div> -->
                         </div>
                         <!-- continue if not last stage -->
-                        <div *ngIf="slowLookingMaximumScriptStageIndex != i" class="row bg-light border-top">
-                            <div class="text-left col-sm-6">
-                                <figcaption class="mt-2 text-left blockquote-footer mb-0">{{currentScript.author}}</figcaption>
+                        <div *ngIf="slowLookingMaximumScriptStageIndex != i" class="container-fluid row bg-light border-top m-0 p-0">
+                            <div class="text-start col-sm-6">
+                                <figcaption class="mt-2 text-start blockquote-footer mb-0">{{currentScript.author}}</figcaption>
                             </div>
-                            <div class="text-right col-sm-6 mb-3 mt-sm-3">
-                                <button class="mr-2 btn btn-secondary" *ngIf="i != 0" (click)="multiquestionBack(multiquestionIndex, answervalue.value, stage, stage.questions, i, newMultiquestionAction)"><i class="fa fa-chevron-left" aria-hidden="true"></i> {{ 'activity.button.back' | translate }}</button>
+                            <div class="text-end col-sm-6 mb-3 mt-sm-3">
+                                <button class="me-2 btn btn-secondary" *ngIf="i != 0" (click)="multiquestionBack(multiquestionIndex, answervalue.value, stage, stage.questions, i, newMultiquestionAction)"><i class="fa fa-chevron-left" aria-hidden="true"></i> {{ 'activity.button.back' | translate }}</button>
                                 <button class="btn btn-secondary" [disabled]="stage.required && !(answervalue.value && (filterEmptyMultiquestionAnswers().length >= stage.questions.length || (!isFilledMultiquestionanswer(multiquestionIndex) && filterEmptyMultiquestionAnswers().length == stage.questions.length-1)))" (click)="multiquestionContinue(multiquestionIndex, answervalue.value, stage, stage.questions, i, newMultiquestionAction)">{{ 'activity.button.continue' | translate }} <i class="fa fa-chevron-right" aria-hidden="true"></i></button>
                             </div>
                         </div>
                     </ng-container>
 
-                <span *ngIf="!stage.sequential">
-                    <!-- <span class="col-sm-12">{{stage.body[multiquestionIndex]}}</span><br/><br/> -->
-                    <div class="alert alert-info mt-0" style="background-color: white;">
-                        <p class="text-break" style="white-space: pre-wrap;" [innerHTML]="stage.questions[multiquestionIndex].title | linkifyHtml"></p>
-                        <!-- <button class="m-3 btn btn-warning" (click)="randomiseQuestion(stage.body.length-1); submittedAnswer=false;">Reload question</button> -->
+                    <span *ngIf="!stage.sequential">
+                    <div class="container-fluid">
+                        <!-- <span class="col-sm-12">{{stage.body[multiquestionIndex]}}</span><br/><br/> -->
+                        <div class="alert alert-info mt-0" style="background-color: white;">
+                            <p class="text-break" style="white-space: pre-wrap;" [innerHTML]="stage.questions[multiquestionIndex].title | linkifyHtml"></p>
+                            <!-- <button class="m-3 btn btn-warning" (click)="randomiseQuestion(stage.body.length-1); submittedAnswer=false;">Reload question</button> -->
 
-                        <div *ngIf="!stage.questions[multiquestionIndex].choice" style="width: 100%;">
-                            <textarea [formControl]="answervalue" type="text" rows="3" #answer class="form-control" (keyup)="answerChanged($event)"></textarea>
-                        </div>
-                        <div *ngIf="stage.questions[multiquestionIndex].choice">
-                            <div *ngFor="let option of stage.questions[multiquestionIndex].options" class="form-check ml-1">
-                                <input
-                                    class="form-check-input"
-                                    type="radio"
-                                    [value]="option"
-                                    [formControl]="answervalue"
-                                    (change) = "submittedAnswer=false"
-                                />
-                                <label class="form-check-label">{{option}}</label><br/>
+                            <div *ngIf="!stage.questions[multiquestionIndex].choice" style="width: 100%;">
+                                <textarea [formControl]="answervalue" type="text" rows="3" #answer class="form-control" (keyup)="answerChanged($event)"></textarea>
                             </div>
-                        </div>
+                            <div *ngIf="stage.questions[multiquestionIndex].choice">
+                                <div *ngFor="let option of stage.questions[multiquestionIndex].options" class="form-check ms-1">
+                                    <input
+                                        class="form-check-input"
+                                        type="radio"
+                                        [value]="option"
+                                        [formControl]="answervalue"
+                                        (change) = "submittedAnswer=false"
+                                    />
+                                    <label class="form-check-label">{{option}}</label><br/>
+                                </div>
+                            </div>
 
-                        <div class="row">
-                            <!-- <div class="col">&nbsp;
+                            <div class="row">
+                                <!-- <div class="col">&nbsp;
+                                </div> -->
+                                <div  class="col-6 fs-6" style="color: rgb(89, 98, 105);">
+                                    <ng-container *ngIf="stage.required">(required)</ng-container>&nbsp;
+                                </div>
+                                <div class="col-6 fs-6 text-end" style="color: rgb(89, 98, 105);">
+                                    {{multiquestionIndex+1}}/{{stage.questions.length}}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="mx-auto text-center" style="width: 100%;">
+                                    <!-- <span *ngIf="submittedAnswer" class="text-warning ms-1">Your answer has been saved</span><br/> -->
+                                    <button class="btn btn-warning"  (click)="updateAnswers(multiquestionIndex, answervalue.value); submittedAnswer=(!stage.questions[multiquestionIndex].choice||stage.questions[multiquestionIndex].options.length > 0); randomiseQuestion(stage.questions.length-1);">{{ 'activity.button.shuffle' | translate }} <i class="fa fa-refresh" aria-hidden="true"></i></button>
+                                </div>
+                                <!-- <div class="col">&nbsp;
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+                        <!-- <button class="m-3 btn btn-warning" (click)="updateAnswers(multiquestionIndex, answer.value); submittedAnswer=true;">Close</button> -->
+                        <!-- return to list if last stage -->
+                        <div *ngIf="slowLookingMaximumScriptStageIndex == i" class="container-fluid row bg-light border-top m-0 p-0">
+                            <div class="text-start col-sm-6">
+                                <figcaption class="mt-2 text-start blockquote-footer mb-0">{{currentScript.author}}</figcaption>
+                            </div>
+                            <div class="text-end col-sm-6 mb-3 mt-sm-3">
+                                <button class="me-2 btn btn-secondary" *ngIf="i != 0" (click)="multiquestionBack(multiquestionIndex, answervalue.value, stage, stage.questions, i, newMultiquestionAction)"><i class="fa fa-chevron-left" aria-hidden="true"></i> {{ 'activity.button.back' | translate }}</button>
+                                <button class="btn btn-secondary" [disabled]="stage.required && !(answervalue.value && (filterEmptyMultiquestionAnswers().length >= stage.questions.length || (!isFilledMultiquestionanswer(multiquestionIndex) && filterEmptyMultiquestionAnswers().length == stage.questions.length-1)))" (click)="multiquestionEnd(i, multiquestionIndex, answervalue.value, stage, stage.questions, newMultiquestionAction)" [routerLink]="routerLink" [queryParams]="getQueryParams()">{{ 'activity.button.finish' | translate }} <i class="fa fa-chevron-right" aria-hidden="true"></i></button>
+                            </div>
+                            <!-- <div class="text-right mb-3">
+                                <span *ngIf="!statementOnlyScript(currentScript)" class="fs-6" style="color: rgb(89, 98, 105);">Press <strong>Close</strong> to save your response</span>
                             </div> -->
-                            <div  class="col-6  fs-6" style="color: rgb(89, 98, 105); width:100%;">
-                                <ng-container *ngIf="stage.required">(required)</ng-container> 
+                        </div>
+                        <!-- continue if not last stage -->
+                        <div *ngIf="slowLookingMaximumScriptStageIndex != i" class="container-fluid row bg-light border-top m-0 p-0">
+                            <div class="text-start col-sm-6">
+                                <figcaption class="mt-2 text-start blockquote-footer mb-0">{{currentScript.author}}</figcaption>
                             </div>
-                            <div class="col-6 fs-6 text-right" style="color: rgb(89, 98, 105);">
-                                {{multiquestionIndex+1}}/{{stage.questions.length}}
+                            <div class="text-end col-sm-6 mb-3 mt-sm-3">
+                                <button class="me-2 btn btn-secondary" *ngIf="i != 0" (click)="multiquestionBack(multiquestionIndex, answervalue.value, stage, stage.questions, i, newMultiquestionAction)"><i class="fa fa-chevron-left" aria-hidden="true"></i> {{ 'activity.button.back' | translate }}</button>
+                                <button class="btn btn-secondary" [disabled]="stage.required && !(answervalue.value && (filterEmptyMultiquestionAnswers().length >= stage.questions.length || (!isFilledMultiquestionanswer(multiquestionIndex) && filterEmptyMultiquestionAnswers().length == stage.questions.length-1)))" (click)="multiquestionContinue(multiquestionIndex, answervalue.value, stage, stage.questions, i, newMultiquestionAction)">{{ 'activity.button.continue' | translate }} <i class="fa fa-chevron-right" aria-hidden="true"></i></button>
                             </div>
-                            <div class="mx-auto text-center" style="width: 100%;">
-                                <!-- <span *ngIf="submittedAnswer" class="text-warning ml-1">Your answer has been saved</span><br/> -->
-                                <button class="btn btn-warning"  (click)="updateAnswers(multiquestionIndex, answervalue.value); submittedAnswer=(!stage.questions[multiquestionIndex].choice||stage.questions[multiquestionIndex].options.length > 0); randomiseQuestion(stage.questions.length-1);">{{ 'activity.button.shuffle' | translate }} <i class="fa fa-refresh" aria-hidden="true"></i></button>
-                            </div>
-                            <!-- <div class="col">&nbsp;
-                            </div> -->
                         </div>
-                    </div>
-                    <!-- <button class="m-3 btn btn-warning" (click)="updateAnswers(multiquestionIndex, answer.value); submittedAnswer=true;">Close</button> -->
-                    <!-- return to list if last stage -->
-                    <div *ngIf="slowLookingMaximumScriptStageIndex == i" class="row bg-light border-top">
-                        <div class="text-left col-sm-6">
-                            <figcaption class="mt-2 text-left blockquote-footer mb-0">{{currentScript.author}}</figcaption>
-                        </div>
-                        <div class="text-right col-sm-6 mb-3 mt-sm-3">
-                            <button class="mr-2 btn btn-secondary" *ngIf="i != 0" (click)="multiquestionBack(multiquestionIndex, answervalue.value, stage, stage.questions, i, newMultiquestionAction)"><i class="fa fa-chevron-left" aria-hidden="true"></i> {{ 'activity.button.back' | translate }}</button>
-                            <button class="btn btn-secondary" [disabled]="stage.required && !(answervalue.value && (filterEmptyMultiquestionAnswers().length >= stage.questions.length || (!isFilledMultiquestionanswer(multiquestionIndex) && filterEmptyMultiquestionAnswers().length == stage.questions.length-1)))" (click)="multiquestionEnd(i, multiquestionIndex, answervalue.value, stage, stage.questions, newMultiquestionAction)" [routerLink]="routerLink" [queryParams]="getQueryParams()">{{ 'activity.button.finish' | translate }} <i class="fa fa-chevron-right" aria-hidden="true"></i></button>
-                        </div>
-                        <!-- <div class="text-right mb-3">
-                            <span *ngIf="!statementOnlyScript(currentScript)" class="fs-6" style="color: rgb(89, 98, 105);">Press <strong>Close</strong> to save your response</span>
-                        </div> -->
-                    </div>
-                    <!-- continue if not last stage -->
-                    <div *ngIf="slowLookingMaximumScriptStageIndex != i" class="row bg-light border-top">
-                        <div class="text-left col-sm-6">
-                            <figcaption class="mt-2 text-left blockquote-footer mb-0">{{currentScript.author}}</figcaption>
-                        </div>
-                        <div class="text-right col-sm-6 mb-3 mt-sm-3">
-                            <button class="mr-2 btn btn-secondary" *ngIf="i != 0" (click)="multiquestionBack(multiquestionIndex, answervalue.value, stage, stage.questions, i, newMultiquestionAction)"><i class="fa fa-chevron-left" aria-hidden="true"></i> {{ 'activity.button.back' | translate }}</button>
-                            <button class="btn btn-secondary" [disabled]="stage.required && !(answervalue.value && (filterEmptyMultiquestionAnswers().length >= stage.questions.length || (!isFilledMultiquestionanswer(multiquestionIndex) && filterEmptyMultiquestionAnswers().length == stage.questions.length-1)))" (click)="multiquestionContinue(multiquestionIndex, answervalue.value, stage, stage.questions, i, newMultiquestionAction)">{{ 'activity.button.continue' | translate }} <i class="fa fa-chevron-right" aria-hidden="true"></i></button>
-                        </div>
-                    </div>
-                </span>
+                    </span>
                  
             <!-- </div> -->
         </div>
@@ -316,19 +325,55 @@
             <div class="form-group">
                 <!-- initialise a new action and add its stage and question  -->
                 <!-- {{intialiseQuestionAction(stage, stage.body)}} -->
+                <div class="container-fluid">
+                    <!-- show title and question  -->
+                    <h2>{{stage.title}}</h2>
 
-                <!-- show title and question  -->
-                <h2>{{stage.title}}</h2>
-
-                <div>
-                    <!-- show included artworks -->
-                    <ng-container *ngIf="getArtworksFromIds(stage.includeartworks).length > 0">
-                        <div *ngFor="let artwork of getArtworksFromIds(stage.includeartworks).slice(0,1); let first = first" class="row align-items-end mb-3">
+                    <div>
+                        <!-- show included artworks -->
+                        <ng-container *ngIf="getArtworksFromIds(stage.includeartworks).length > 0">
+                            <div *ngFor="let artwork of getArtworksFromIds(stage.includeartworks).slice(0,1); let first = first" class="row align-items-end mb-3">
+                                <div class="col-sm-6">
+                                    <div class="row" *ngIf="artwork.url">
+                                        <!-- <div class="container"> -->
+                                            <img src="{{artwork.url}}" class="img-fluid" alt="{{artwork.name}}" (click)="startLightbox(artwork.url)" style="cursor: pointer;" (error)="handleMissingImage($event)">
+                                        <!-- </div> -->
+                                    </div>
+                                    <div class="row" *ngIf="!artwork.url && artwork.fileLocation">
+                                        <img src="{{artwork.fileLocation}}" style="cursor: pointer;" (error)="handleMissingImage($event)">
+                                    </div>
+                                </div>
+                                <div class="col-sm ms-3">
+                                    <div class="col-sm-12">
+                                        <div class="row text-start" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="artwork.name"></div>
+                                        <strong><div class="row text-start" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="artwork.artist"></div></strong>
+                                        <div class="row text-start" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="artwork.year"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-container>
+                        <ng-container *ngIf="getArtworksFromIds(stage.includeartworks).length > 1">
+                            <div class="row itemsBlock">
+                                <div *ngFor="let artwork of getArtworksFromIds(stage.includeartworks).slice(1);" class="col-md-4 col-sm-6 col-12 pb-3">
+                                    <div class="row">
+                                        <div class="container">
+                                            <img src="{{artwork.url}}" class="img-fluid" alt="{{artwork.name}}" (click)="startLightbox(artwork.url)" style="height: auto; width: 100%; cursor: pointer;" (error)="handleMissingImage($event)">
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="container">
+                                            <div class="row text-start" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="artwork.name"></div>
+                                            <strong><div class="row text-start" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="artwork.artist"></div></strong>
+                                            <div class="row text-start" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="artwork.year"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-container>
+                        <!-- <div *ngFor="let artwork of getArtworksFromIds(stage.includeartworks); let first = first" class="row align-items-end mb-3">
                             <div class="col-sm-6">
                                 <div class="row" *ngIf="artwork.url">
-                                    <!-- <div class="container"> -->
-                                        <img src="{{artwork.url}}" class="img-fluid" alt="{{artwork.name}}" (click)="startLightbox(artwork.url)" style="cursor: pointer;" (error)="handleMissingImage($event)">
-                                    <!-- </div> -->
+                                    <img src="{{artwork.url}}" alt="{{artwork.name}}" (click)="startLightbox(artwork.url)" style="cursor: pointer;" (error)="handleMissingImage($event)">
                                 </div>
                                 <div class="row" *ngIf="!artwork.url && artwork.fileLocation">
                                     <img src="{{artwork.fileLocation}}" style="cursor: pointer;" (error)="handleMissingImage($event)">
@@ -336,104 +381,70 @@
                             </div>
                             <div class="col-sm">
                                 <div class="col-sm-12">
-                                    <div class="row text-left" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="artwork.name"></div>
-                                    <strong><div class="row text-left" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="artwork.artist"></div></strong>
-                                    <div class="row text-left" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="artwork.year"></div>
+                                    <div class="row text-start" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="artwork.name"></div>
+                                    <strong><div class="row text-start" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="artwork.artist"></div></strong>
+                                    <div class="row text-start" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="artwork.year"></div>
                                 </div>
                             </div>
-                        </div>
-                    </ng-container>
-                    <ng-container *ngIf="getArtworksFromIds(stage.includeartworks).length > 1">
-                        <div class="row itemsBlock">
-                            <div *ngFor="let artwork of getArtworksFromIds(stage.includeartworks).slice(1);" class="col-md-4 col-sm-6 col-12 pb-3">
-                                <div class="row">
-                                    <div class="container">
-                                        <img src="{{artwork.url}}" class="img-fluid" alt="{{artwork.name}}" (click)="startLightbox(artwork.url)" style="height: auto; width: 100%; cursor: pointer;" (error)="handleMissingImage($event)">
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="container">
-                                        <div class="row text-left" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="artwork.name"></div>
-                                        <strong><div class="row text-left" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="artwork.artist"></div></strong>
-                                        <div class="row text-left" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="artwork.year"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </ng-container>
-                    <!-- <div *ngFor="let artwork of getArtworksFromIds(stage.includeartworks); let first = first" class="row align-items-end mb-3">
-                        <div class="col-sm-6">
-                            <div class="row" *ngIf="artwork.url">
-                                <img src="{{artwork.url}}" alt="{{artwork.name}}" (click)="startLightbox(artwork.url)" style="cursor: pointer;" (error)="handleMissingImage($event)">
-                            </div>
-                            <div class="row" *ngIf="!artwork.url && artwork.fileLocation">
-                                <img src="{{artwork.fileLocation}}" style="cursor: pointer;" (error)="handleMissingImage($event)">
-                            </div>
-                        </div>
-                        <div class="col-sm">
-                            <div class="col-sm-12">
-                                <div class="row text-left" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="artwork.name"></div>
-                                <strong><div class="row text-left" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="artwork.artist"></div></strong>
-                                <div class="row text-left" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="artwork.year"></div>
-                            </div>
-                        </div>
-                    </div> -->
-                </div>
+                        </div> -->
+                    </div>
 
 
-                <p class="text-break" style="white-space: pre-wrap;" [innerHTML]="stage.question.title | linkifyHtml"></p>
-                <div class="row">
-                    <div class="col">
-                        <span class="alert alert-info pl-3 pr-3" style="float:left; white-space: pre-wrap; width: 100%;" *ngIf="stage.help && showQuestionHelp" [innerHTML]="stage.help | linkifyHtml"></span>
-                    </div>
-                    <div class="col-1" style="max-width: 25px;">
-                        <img *ngIf="stage.help" (click)="toggleQuestionHelp()" width="25" style="float: right; background-color:white; cursor: pointer;" src="assets/img/question-help.png">
-                        <!-- <span class="float-right"><div *ngIf="stage.help" class="col-sm-12" (click)="toggleQuestionHelp()"><img width="20" style="background-color:white; cursor: pointer;" src="assets/img/question-help.png"></div></span> -->
-                    </div>
-                </div>
-                <div *ngIf="!stage.question.choice" class="mb-3">
-                    <textarea class="col-sm-12" rows="3" class="form-control" [(ngModel)]="newQuestionAction.answer"></textarea>
-                    <div *ngIf="stage.required" class="fs-6" style="color: rgb(89, 98, 105); width:100%;">(required)</div>
-                </div>
-                <!-- radio -->
-                <ng-container *ngIf="!stage.question.mulitselect">
-                    <div *ngIf="stage.question.choice" class="col-sm-12 mb-3 p-0">
-                        <div *ngFor="let option of stage.question.options" class="form-check ml-1">
-                            <input
-                                class="form-check-input"
-                                type="radio"
-                                [value]=option
-                                [(ngModel)] = "newQuestionAction.answer"
-                                (change) = "submittedAnswer=false"
-                            />
-                            <label class="form-check-label">{{option}}</label><br/>
+                    <p class="text-break" style="white-space: pre-wrap;" [innerHTML]="stage.question.title | linkifyHtml"></p>
+                    <div class="row">
+                        <div class="col">
+                            <span class="alert alert-info pl-3 pr-3" style="float:left; white-space: pre-wrap; width: 100%;" *ngIf="stage.help && showQuestionHelp" [innerHTML]="stage.help | linkifyHtml"></span>
                         </div>
+                        <div class="col-1" style="max-width: 25px;">
+                            <img *ngIf="stage.help" (click)="toggleQuestionHelp()" width="25" style="float: right; background-color:white; cursor: pointer;" src="assets/img/question-help.png">
+                            <!-- <span class="float-right"><div *ngIf="stage.help" class="col-sm-12" (click)="toggleQuestionHelp()"><img width="20" style="background-color:white; cursor: pointer;" src="assets/img/question-help.png"></div></span> -->
+                        </div>
+                    </div>
+                    <div *ngIf="!stage.question.choice" class="mb-3">
+                        <textarea class="col-sm-12" rows="3" class="form-control" [(ngModel)]="newQuestionAction.answer"></textarea>
                         <div *ngIf="stage.required" class="fs-6" style="color: rgb(89, 98, 105); width:100%;">(required)</div>
                     </div>
-                </ng-container>
-                <!-- checkbox -->
-                <ng-container *ngIf="stage.question.mulitselect">
-                    <div *ngIf="stage.question.choice" class="col-sm-12 mb-3 p-0">
-                        <div *ngFor="let option of stage.question.options" class="form-check ml-1">
-                            <input
-                                class="form-check-input"
-                                type="checkbox"
-                                [value]=option
-                                [ngModel] = "isSelectioninAnswer(option)"
-                                (change) = "submittedAnswer=false; updateCheckboxAnswer(option, $event);"
-                            />
-                            <label class="form-check-label">{{option}}</label><br/>
+                    <!-- radio -->
+                    <ng-container *ngIf="!stage.question.mulitselect">
+                        <div *ngIf="stage.question.choice" class="col-sm-12 mb-3 p-0">
+                            <div *ngFor="let option of stage.question.options" class="form-check ms-1">
+                                <input
+                                    class="form-check-input"
+                                    type="radio"
+                                    [value]=option
+                                    [(ngModel)] = "newQuestionAction.answer"
+                                    (change) = "submittedAnswer=false"
+                                />
+                                <label class="form-check-label">{{option}}</label><br/>
+                            </div>
+                            <div *ngIf="stage.required" class="fs-6" style="color: rgb(89, 98, 105); width:100%;">(required)</div>
                         </div>
-                        <div *ngIf="stage.required" class="fs-6" style="color: rgb(89, 98, 105); width:100%;">(required)</div>
-                    </div>
-                </ng-container>
+                    </ng-container>
+                    <!-- checkbox -->
+                    <ng-container *ngIf="stage.question.mulitselect">
+                        <div *ngIf="stage.question.choice" class="col-sm-12 mb-3 p-0">
+                            <div *ngFor="let option of stage.question.options" class="form-check ms-1">
+                                <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    [value]=option
+                                    [ngModel] = "isSelectioninAnswer(option)"
+                                    (change) = "submittedAnswer=false; updateCheckboxAnswer(option, $event);"
+                                />
+                                <label class="form-check-label">{{option}}</label><br/>
+                            </div>
+                            <div *ngIf="stage.required" class="fs-6" style="color: rgb(89, 98, 105); width:100%;">(required)</div>
+                        </div>
+                    </ng-container>
+                </div>
+                
                 <!-- return to list if last stage -->
-                <div *ngIf="slowLookingMaximumScriptStageIndex == i" class="row bg-light border-top">
-                    <div class="text-left col-sm-6">
-                        <figcaption class="mt-2 text-left blockquote-footer mb-0">{{currentScript.author}}</figcaption>
+                <div *ngIf="slowLookingMaximumScriptStageIndex == i" class="container-fluid border row bg-light border-top m-0 p-0">
+                    <div class="text-start col-sm-6">
+                        <figcaption class="mt-2 text-start blockquote-footer mb-0">{{currentScript.author}}</figcaption>
                     </div>
-                    <div class="text-right col-sm-6 mb-3 mt-sm-3">
-                        <button class="mr-2 btn btn-secondary" *ngIf="i != 0" (click)="questionBack(i, stage, stage.question.title, newQuestionAction);"><i class="fa fa-chevron-left" aria-hidden="true"></i> {{ 'activity.button.back' | translate }}</button>
+                    <div class="text-end col-sm-6 mb-3 mt-sm-3">
+                        <button class="me-2 btn btn-secondary" *ngIf="i != 0" (click)="questionBack(i, stage, stage.question.title, newQuestionAction);"><i class="fa fa-chevron-left" aria-hidden="true"></i> {{ 'activity.button.back' | translate }}</button>
                         <button class="btn btn-secondary" [disabled]="stage.required && !this.newQuestionAction.answer" (click)="questionEnd(i, stage, stage.question.title, newQuestionAction);" [routerLink]="routerLink" [queryParams]="getQueryParams()">{{ 'activity.button.finish' | translate }} <i class="fa fa-chevron-right" aria-hidden="true"></i></button>
                     </div>
                     <!-- <div class="text-right mb-3">
@@ -441,33 +452,70 @@
                     </div> -->
                 </div>
                 <!-- continue if not last stage -->
-                <div *ngIf="slowLookingMaximumScriptStageIndex != i" class="row bg-light border-top">
-                    <div class="text-left col-sm-6">
-                        <figcaption class="mt-2 text-left blockquote-footer mb-0">{{currentScript.author}}&nbsp;</figcaption>
+                <div *ngIf="slowLookingMaximumScriptStageIndex != i" class="container-fluid row bg-light border-top m-0 p-0">
+                    <div class="text-start col-sm-6">
+                        <figcaption class="mt-2 text-start blockquote-footer mb-0">{{currentScript.author}}&nbsp;</figcaption>
                     </div>
-                    <div class="text-right col-sm-6 mb-3 mt-sm-3">
-                        <button class="mr-2 btn btn-secondary" *ngIf="i != 0" (click)="questionBack(i, stage, stage.question.title, newQuestionAction);"><i class="fa fa-chevron-left" aria-hidden="true"></i> {{ 'activity.button.back' | translate }}</button>
+                    <div class="text-end col-sm-6 mb-3 mt-sm-3">
+                        <button class="me-2 btn btn-secondary" *ngIf="i != 0" (click)="questionBack(i, stage, stage.question.title, newQuestionAction);"><i class="fa fa-chevron-left" aria-hidden="true"></i> {{ 'activity.button.back' | translate }}</button>
                         <button class="btn btn-secondary" [disabled]="stage.required && !this.newQuestionAction.answer" (click)="questionContinue(i, stage, stage.question.title, newQuestionAction);">{{ 'activity.button.continue' | translate }} <i class="fa fa-chevron-right" aria-hidden="true"></i></button>
                     </div>
                 </div>
+
             </div>
         </div>   
 
         <div *ngIf="stage.stagetype == 'story'"> 
             <div class="form-group">
+                <div class="container-fluid">
+                    <!-- show title  -->
+                    <h2>{{stage.title}}</h2>
 
-                <!-- show title  -->
-                <h2>{{stage.title}}</h2>
-
-                <div>
-                    <!-- show included artworks -->
-                    <ng-container *ngIf="getArtworksFromIds(stage.includeartworks).length > 0">
-                        <div *ngFor="let artwork of getArtworksFromIds(stage.includeartworks).slice(0,1); let first = first" class="row align-items-end mb-3">
+                    <div>
+                        <!-- show included artworks -->
+                        <ng-container *ngIf="getArtworksFromIds(stage.includeartworks).length > 0">
+                            <div *ngFor="let artwork of getArtworksFromIds(stage.includeartworks).slice(0,1); let first = first" class="row align-items-end mb-3">
+                                <div class="col-sm-6">
+                                    <div class="row" *ngIf="artwork.url">
+                                        <!-- <div class="container"> -->
+                                            <img src="{{artwork.url}}" class="img-fluid" alt="{{artwork.name}}" (click)="startLightbox(artwork.url)" style="cursor: pointer;" (error)="handleMissingImage($event)">
+                                        <!-- </div> -->
+                                    </div>
+                                    <div class="row" *ngIf="!artwork.url && artwork.fileLocation">
+                                        <img src="{{artwork.fileLocation}}" style="cursor: pointer;" (error)="handleMissingImage($event)">
+                                    </div>
+                                </div>
+                                <div class="col-sm">
+                                    <div class="col-sm-12">
+                                        <div class="row text-start" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="artwork.name"></div>
+                                        <strong><div class="row text-start" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="artwork.artist"></div></strong>
+                                        <div class="row text-start" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="artwork.year"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-container>
+                        <ng-container *ngIf="getArtworksFromIds(stage.includeartworks).length > 1">
+                            <div class="row itemsBlock">
+                                <div *ngFor="let artwork of getArtworksFromIds(stage.includeartworks).slice(1);" class="col-md-4 col-sm-6 col-12 pb-3">
+                                    <div class="row">
+                                        <div class="container">
+                                            <img src="{{artwork.url}}" class="img-fluid" alt="{{artwork.name}}" (click)="startLightbox(artwork.url)" style="height: auto; width: 100%; cursor: pointer;" (error)="handleMissingImage($event)">
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="container">
+                                            <div class="row text-start" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="artwork.name"></div>
+                                            <strong><div class="row text-start" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="artwork.artist"></div></strong>
+                                            <div class="row text-start" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="artwork.year"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-container>
+                        <!-- <div *ngFor="let artwork of getArtworksFromIds(stage.includeartworks); let first = first" class="row align-items-end mb-3">
                             <div class="col-sm-6">
                                 <div class="row" *ngIf="artwork.url">
-                                    <!-- <div class="container"> -->
-                                        <img src="{{artwork.url}}" class="img-fluid" alt="{{artwork.name}}" (click)="startLightbox(artwork.url)" style="cursor: pointer;" (error)="handleMissingImage($event)">
-                                    <!-- </div> -->
+                                    <img src="{{artwork.url}}" alt="{{artwork.name}}" (click)="startLightbox(artwork.url)" style="cursor: pointer;" (error)="handleMissingImage($event)">
                                 </div>
                                 <div class="row" *ngIf="!artwork.url && artwork.fileLocation">
                                     <img src="{{artwork.fileLocation}}" style="cursor: pointer;" (error)="handleMissingImage($event)">
@@ -475,68 +523,33 @@
                             </div>
                             <div class="col-sm">
                                 <div class="col-sm-12">
-                                    <div class="row text-left" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="artwork.name"></div>
-                                    <strong><div class="row text-left" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="artwork.artist"></div></strong>
-                                    <div class="row text-left" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="artwork.year"></div>
+                                    <div class="row text-start" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="artwork.name"></div>
+                                    <strong><div class="row text-start" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="artwork.artist"></div></strong>
+                                    <div class="row text-start" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="artwork.year"></div>
                                 </div>
                             </div>
-                        </div>
-                    </ng-container>
-                    <ng-container *ngIf="getArtworksFromIds(stage.includeartworks).length > 1">
-                        <div class="row itemsBlock">
-                            <div *ngFor="let artwork of getArtworksFromIds(stage.includeartworks).slice(1);" class="col-md-4 col-sm-6 col-12 pb-3">
-                                <div class="row">
-                                    <div class="container">
-                                        <img src="{{artwork.url}}" class="img-fluid" alt="{{artwork.name}}" (click)="startLightbox(artwork.url)" style="height: auto; width: 100%; cursor: pointer;" (error)="handleMissingImage($event)">
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="container">
-                                        <div class="row text-left" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="artwork.name"></div>
-                                        <strong><div class="row text-left" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="artwork.artist"></div></strong>
-                                        <div class="row text-left" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="artwork.year"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </ng-container>
-                    <!-- <div *ngFor="let artwork of getArtworksFromIds(stage.includeartworks); let first = first" class="row align-items-end mb-3">
-                        <div class="col-sm-6">
-                            <div class="row" *ngIf="artwork.url">
-                                <img src="{{artwork.url}}" alt="{{artwork.name}}" (click)="startLightbox(artwork.url)" style="cursor: pointer;" (error)="handleMissingImage($event)">
-                            </div>
-                            <div class="row" *ngIf="!artwork.url && artwork.fileLocation">
-                                <img src="{{artwork.fileLocation}}" style="cursor: pointer;" (error)="handleMissingImage($event)">
-                            </div>
-                        </div>
-                        <div class="col-sm">
-                            <div class="col-sm-12">
-                                <div class="row text-left" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="artwork.name"></div>
-                                <strong><div class="row text-left" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="artwork.artist"></div></strong>
-                                <div class="row text-left" style="white-space: pre-wrap; line-height: 1.2;" [innerHTML]="artwork.year"></div>
-                            </div>
-                        </div>
-                    </div> -->
-                </div>
+                        </div> -->
+                    </div>
 
 
-                <p class="alert alert-info text-break" style="white-space: pre-wrap;" [innerHTML]="stage.help | linkifyHtml"></p>
+                    <p class="alert alert-info text-break" style="white-space: pre-wrap;" [innerHTML]="stage.help | linkifyHtml"></p>
 
-                <p class="text-break" style="white-space: pre-wrap;" [innerHTML]="stage.body | linkifyHtml"></p>
+                    <p class="text-break" style="white-space: pre-wrap;" [innerHTML]="stage.body | linkifyHtml"></p>
 
-                <!-- get the answer -->
-                <div class="mb-3">
-                    <textarea class="col-sm-12" rows="3" class="form-control" [(ngModel)]="newStoryAction.answer"></textarea>
-                    <div *ngIf="stage.required" class="fs-6" style="color: rgb(89, 98, 105); width:100%;">(required)</div>
+                    <!-- get the answer -->
+                    <div class="mb-3">
+                        <textarea class="col-sm-12" rows="3" class="form-control" [(ngModel)]="newStoryAction.answer"></textarea>
+                        <div *ngIf="stage.required" class="fs-6" style="color: rgb(89, 98, 105); width:100%;">(required)</div>
+                    </div>
                 </div>
                 
                 <!-- return to list if last stage -->
-                <div *ngIf="slowLookingMaximumScriptStageIndex == i" class="row bg-light border-top">
-                    <div class="text-left col-sm-6">
-                        <figcaption class="mt-2 text-left blockquote-footer mb-0">{{currentScript.author}}</figcaption>
+                <div *ngIf="slowLookingMaximumScriptStageIndex == i" class="container-fluid row bg-light border-top m-0 p-0">
+                    <div class="text-start col-sm-6">
+                        <figcaption class="mt-2 text-start blockquote-footer mb-0">{{currentScript.author}}</figcaption>
                     </div>
-                    <div class="text-right col-sm-6 mb-3 mt-sm-3">
-                        <button class="mr-2 btn btn-secondary" *ngIf="i != 0" (click)="storyBack(i, stage, stage.body, newStoryAction);"><i class="fa fa-chevron-left" aria-hidden="true"></i> {{ 'activity.button.back' | translate }}</button>
+                    <div class="text-end col-sm-6 mb-3 mt-sm-3">
+                        <button class="me-2 btn btn-secondary" *ngIf="i != 0" (click)="storyBack(i, stage, stage.body, newStoryAction);"><i class="fa fa-chevron-left" aria-hidden="true"></i> {{ 'activity.button.back' | translate }}</button>
                         <button class="btn btn-secondary" [disabled]="stage.required && !newStoryAction.answer" (click)="storyEnd(i, stage, stage.body, newStoryAction);" [routerLink]="routerLink" [queryParams]="getQueryParams()">{{ 'activity.button.finish' | translate }} <i class="fa fa-chevron-right" aria-hidden="true"></i></button>
                     </div>
                     <!-- <div class="text-right mb-3">
@@ -545,12 +558,12 @@
                 </div>
 
                 <!-- continue if not last stage -->
-                <div *ngIf="slowLookingMaximumScriptStageIndex != i" class="row bg-light border-top">
-                    <div class="text-left col-sm-6">
-                        <figcaption class="mt-2 text-left blockquote-footer mb-0">{{currentScript.author}}</figcaption>
+                <div *ngIf="slowLookingMaximumScriptStageIndex != i" class="container-fluid row bg-light border-top m-0 p-0">
+                    <div class="text-start col-sm-6">
+                        <figcaption class="mt-2 text-start blockquote-footer mb-0">{{currentScript.author}}</figcaption>
                     </div>
-                    <div class="text-right col-sm-6 mb-3 mt-sm-3">
-                        <button class="mr-2 btn btn-secondary" *ngIf="i != 0" (click)="storyBack(i, stage, stage.body, newStoryAction);"><i class="fa fa-chevron-left" aria-hidden="true"></i> {{ 'activity.button.back' | translate }}</button>
+                    <div class="text-end col-sm-6 mb-3 mt-sm-3">
+                        <button class="me-2 btn btn-secondary" *ngIf="i != 0" (click)="storyBack(i, stage, stage.body, newStoryAction);"><i class="fa fa-chevron-left" aria-hidden="true"></i> {{ 'activity.button.back' | translate }}</button>
                         <button class="btn btn-secondary" [disabled]="stage.required && !newStoryAction.answer" (click)="storyContinue(i, stage, stage.body, newStoryAction);">{{ 'activity.button.continue' | translate }} <i class="fa fa-chevron-right" aria-hidden="true"></i></button>
                     </div>
                 </div>

@@ -14,7 +14,7 @@
               <ngb-carousel [showNavigationArrows]="firstScripts.length > 1" [showNavigationIndicators]="firstScripts.length > 1">
                 <ng-template ngbSlide *ngFor="let script of firstScripts">
                   <div class="picsum-img-wrapper" style="height: 700px; text-align: center;" *ngFor="let artwork of getArtworkFromId(script.homepageartworkid);">
-                    <div class="col-md-6 col-sm-8 col-10 text-center mx-auto" style="width: 100%;">
+                    <div class="col-md-6 col-sm-8 col-10 text-center mx-auto" >
                         <img style="width: 100%;" src="{{artwork.url}}" (error)="handleMissingImage($event)">
                     </div>
                   </div>
@@ -195,7 +195,7 @@
               <div [innerHTML]="notFound"></div>
               </ng-template>
             </div>
-            <span *ngIf="model.selectedTheme">
+            <div *ngIf="model.selectedTheme" class="container-fluid">
               <div class="row">
                 &nbsp;
               </div>
@@ -216,7 +216,7 @@
               <ngb-carousel [showNavigationArrows]="model.selectedTheme.scripts.length > 1" [showNavigationIndicators]="model.selectedTheme.scripts.length > 1">
                 <ng-template ngbSlide *ngFor="let script of model.selectedTheme.scripts">
                   <div class="picsum-img-wrapper" style="height: 700px; text-align: center;" *ngFor="let artwork of getArtworkFromId(script.homepageartworkid);">
-                    <div class="col-md-6 col-sm-8 col-10 text-center mx-auto" style="width: 100%;">
+                    <div class="col-md-6 col-sm-8 col-10 text-center mx-auto">
                       <img style="width: 100%;" src="{{artwork.url}}" (error)="handleMissingImage($event)">
                   </div>
                   </div>
@@ -272,7 +272,7 @@
                   </div>
                 </ng-template>
               </ngb-carousel>
-            </span>
+            </div>
           </div>
       </div>
   </div>
@@ -326,7 +326,7 @@
                 <ngb-carousel [showNavigationArrows]="model.selectedArtwork.scripts.length > 1" [showNavigationIndicators]="model.selectedArtwork.scripts.length > 1">
                   <ng-template ngbSlide *ngFor="let script of model.selectedArtwork.scripts">
                     <div class="picsum-img-wrapper" style="height: 700px; text-align: center;" *ngFor="let artwork of getArtworkFromId(script.homepageartworkid);">
-                      <div class="col-md-6 col-sm-8 col-10 text-center mx-auto" style="width: 100%;">
+                      <div class="col-md-6 col-sm-8 col-10 text-center mx-auto">
                         <img style="width: 100%;" src="{{artwork.url}}" (error)="handleMissingImage($event)">
                       </div>
                     </div>
@@ -418,7 +418,7 @@
               <div [innerHTML]="notFound"></div>
               </ng-template>
             </div>
-            <span *ngIf="model.selectedUser">
+            <div *ngIf="model.selectedUser" class="container-fluid">
               <div class="row">
                 &nbsp;
               </div>
@@ -429,7 +429,7 @@
               <ngb-carousel [showNavigationArrows]="model.selectedUser.scripts.length > 1" [showNavigationIndicators]="model.selectedUser.scripts.length > 1">
                 <ng-template ngbSlide *ngFor="let script of model.selectedUser.scripts">
                   <div class="picsum-img-wrapper" style="height: 700px; text-align: center;" *ngFor="let artwork of getArtworkFromId(script.homepageartworkid);">
-                    <div class="col-md-6 col-sm-8 col-10 text-center mx-auto" style="width: 100%;">
+                    <div class="col-md-6 col-sm-8 col-10 text-center mx-auto">
                       <img style="width: 100%;" src="{{artwork.url}}" (error)="handleMissingImage($event)">
                   </div>
                   </div>
@@ -485,7 +485,7 @@
                   </div>
                 </ng-template>
               </ngb-carousel>
-            </span>
+            </div>
           </div>
       </div>
   </div>
@@ -525,7 +525,7 @@
                 <ngb-carousel [showNavigationArrows]="false" [showNavigationIndicators]="false">
                   <ng-template ngbSlide>
                     <div class="picsum-img-wrapper mt-3" style="height: 700px; text-align: center;" *ngFor="let artwork of getArtworkFromId(model.selectedOverviewScript.script.homepageartworkid);">
-                      <div class="col-md-6 col-sm-8 col-10 text-center mx-auto" style="width: 100%;">
+                      <div class="col-md-6 col-sm-8 col-10 text-center mx-auto">
                         <img style="width: 100%;" src="{{artwork.url}}" (error)="handleMissingImage($event)">
                       </div>
                     </div>

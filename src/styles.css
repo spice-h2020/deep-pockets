@@ -103,7 +103,7 @@ a {color: rgb(170, 170, 170);
   border: none;
 }
 
-.carousel-item-next{
+/* .carousel-item-next{
   transition: transform 0s ease-in-out;
 }
 
@@ -115,7 +115,7 @@ a {color: rgb(170, 170, 170);
 }
 .carousel-item-right {
     transform: translateX(100%);
-}
+} */
 
 .nav-pills {
   border-bottom: 1px solid rgb(90, 98, 106); 
