@@ -25,6 +25,14 @@ export class CollectionArtworkTableComponent {
         return results;
     }
 
+    addNewArtwork: boolean = false;
+    newArtwork: CollectionArtwork = new CollectionArtwork();
+
+    resetNewArtwork() {
+        this.addNewArtwork = false;
+        this.newArtwork = new CollectionArtwork();
+    }
+
     searchCollectionText = "";
     searchCollectionDisplayLimit = 16;
 
@@ -71,13 +79,14 @@ export class CollectionArtworkTableComponent {
     }
 
     addCollectionArtwork() {
-        let newCollectionArtwork: CollectionArtwork = new CollectionArtwork();
-        newCollectionArtwork.artist = "";
-        newCollectionArtwork.filelocation = "";
-        newCollectionArtwork.name = "";
-        newCollectionArtwork.year = "";
-        newCollectionArtwork.searchstring = "";
-        this.model.saveCollectionArtwork(newCollectionArtwork);
+        this.addNewArtwork = true;
+        // let newCollectionArtwork: CollectionArtwork = new CollectionArtwork();
+        // newCollectionArtwork.artist = "";
+        // newCollectionArtwork.filelocation = "";
+        // newCollectionArtwork.name = "";
+        // newCollectionArtwork.year = "";
+        // newCollectionArtwork.searchstring = "";
+        // this.model.saveCollectionArtwork(newCollectionArtwork);
     }
 
     deleteCollectionArtwork(_id: string) {

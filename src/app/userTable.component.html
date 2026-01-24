@@ -43,29 +43,26 @@
                             <textarea rows="2" class="form-control" [(ngModel)]="item.displayname"></textarea>
                         </span>
                         <span *ngIf="deleteConfirmation_Id==item._id">
-                            <div class="alert alert-danger" role="alert"><strong>{{ 'users.are_you_sure' | translate }}</strong> <div><button class="btn btn-danger" (click)="deleteUser(item._id)">{{ 'users.button.ok' | translate }}</button> <button class="btn btn-secondary ms-2" (click)="deleteConfirmation_Id=''">{{ 'users.button.cancel' | translate }}</button></div></div>
+                            <div class="alert alert-danger" role="alert"><strong>{{ 'users.are_you_sure' | translate }}</strong> <div><button class="btn btn-danger me-2" (click)="deleteUser(item._id)">{{ 'users.button.ok' | translate }}</button> <button class="btn btn-secondary" (click)="deleteConfirmation_Id=''">{{ 'users.button.cancel' | translate }}</button></div></div>
                         </span>
                     </td>
                     <td>
-                        <span *ngIf="!tableEditing || editrow!=item._id">
-                            {{item.password}}
-                        </span>
-                        <span *ngIf="tableEditing && editrow==item._id">
-                            <textarea rows="1" class="form-control" [(ngModel)]="item.password"></textarea>
-                        </span>
-                    </td> 
-                    <td>
-                        <span *ngIf="!tableEditing && item.id!=1">
-                            <button class="btn btn-danger" (click)="confirmDelete(item._id)">{{ 'users.button.delete' | translate }}</button>
-                        </span>
-                    </td>
-                    <td>
-                        <span *ngIf="!tableEditing">
-                            <button class="btn btn-warning" (click)="editrow=item._id" (click)="tableEditing=true; deleteConfirmation_Id='';">{{ 'users.button.edit' | translate }}</button>
-                        </span>
-                        <span *ngIf="tableEditing && editrow==item._id">
-                            <button class="btn btn-warning" (click)="tableEditing=false; addUser(item, true)" [disabled]="!item.username || !item.password">{{ 'users.button.save' | translate }}</button>
-                        </span>
+                        <div class="row">
+                            <div class="col-sm" *ngIf="!tableEditing || editrow!=item._id">
+                                {{item.password}}
+                            </div>
+                            <div class="col-sm mb-2" *ngIf="tableEditing && editrow==item._id">
+                                <textarea rows="1" class="form-control" [(ngModel)]="item.password"></textarea>
+                            </div>
+                
+                            <div class="col-sm" *ngIf="!tableEditing" style="min-width: 10em;">
+                                <button class="btn btn-warning float-end ms-2" (click)="editrow=item._id" (click)="tableEditing=true; deleteConfirmation_Id='';">{{ 'users.button.edit' | translate }}</button>
+                                <button *ngIf="item.id!=1" class="btn btn-danger float-end" (click)="confirmDelete(item._id)">{{ 'users.button.delete' | translate }}</button>
+                            </div>
+                            <div class="col-sm" *ngIf="tableEditing && editrow==item._id">
+                                <button class="btn btn-warning float-end" (click)="tableEditing=false; addUser(item, true)" [disabled]="!item.username || !item.password">{{ 'users.button.save' | translate }}</button>
+                            </div>
+                        </div>
                     </td>
                 </tr>
                 <tr>
@@ -82,16 +79,15 @@
                         </span>
                     </td>
                     <td>
-                        <span *ngIf="!tableEditing">
-                            <textarea rows="1" class="form-control" [(ngModel)]="newUser.password"></textarea>
-                        </span>
-                    </td>
-                    <td>
-                    </td>
-                    <td>
-                        <span *ngIf="!tableEditing">
-                            <button class="btn btn-success" (click)="addUser(newUser, false)" [disabled]="!newUser.username || !newUser.displayname || !newUser.password">{{ 'users.button.add' | translate }}</button>
-                        </span>
+                        <div class="row">
+                            <div class="col-sm mb-2" *ngIf="!tableEditing">
+                                <textarea rows="1" class="form-control" [(ngModel)]="newUser.password"></textarea>
+                            </div>
+            
+                            <div class="col-sm" *ngIf="!tableEditing">
+                                <button class="btn btn-success float-end" (click)="addUser(newUser, false)" [disabled]="!newUser.username || !newUser.displayname || !newUser.password">{{ 'users.button.add' | translate }}</button>
+                            </div>
+                        </div>
                     </td>
                 </tr> 
             </tbody> 

@@ -133,8 +133,8 @@ export class Model {
             this.dbDataSource.saveCollectionArtwork(collectionArtwork).subscribe(p => 
                 {
                     this.dbCollectionArtworks.unshift(p);
-                    this.selectedCollectionArtwork = p;
-                    this.selectedCollectionArtworkId = p._id;
+                    // this.selectedCollectionArtwork = p;
+                    // this.selectedCollectionArtworkId = p._id;
                 }
             );
             
