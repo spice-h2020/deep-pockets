@@ -74,7 +74,7 @@
 
             <div class="col">&nbsp;</div>
             <div class="col-4" style="min-width: 8em;">
-                <button class="btn btn-success float-end" (click)="addScript(); copyScriptMessage=false;" *ngIf="(!isAdmin() || (isAdmin() && currentUser==1))">{{ 'activities.button.new_activity' | translate }}</button>
+                <button class="btn btn-success float-end me-1" (click)="addScript(); copyScriptMessage=false;" *ngIf="(!isAdmin() || (isAdmin() && currentUser==1))">{{ 'activities.button.new_activity' | translate }}</button>
             </div>
         </div>
     </ng-container>
@@ -101,7 +101,7 @@
         </div>
     </div>
     <span *ngIf="copiedScript==script.id && copyScriptMessage">
-        <div class="alert alert-success fadeout mt-3">{{copyScriptMessageText}}</div>
+        <div class="alert alert-success fadeout mt-3">{{copyScriptMessageText()}}</div>
     </span>
     <div class="row" *ngIf="removeConfirmation_Id==script._id">
         <div class="alert alert-danger" role="alert"><strong>{{ 'activities.are_you_sure_remove_activity' | translate }}</strong> <div><button class="btn btn-danger me-2" (click)="removeScript(script)">{{ 'activities.button.ok' | translate }}</button> <button class="btn btn-secondary" (click)="removeConfirmation_Id=''">{{ 'activities.button.cancel' | translate }}</button></div></div>
@@ -701,7 +701,7 @@
                             </span>
                         </span><br/>
                         <span *ngIf="copiedStage==stage.id && copyStageMessage">
-                            <div class="alert alert-success fadeout mt-3">{{copyStageMessageText}}</div>
+                            <div class="alert alert-success fadeout mt-3">{{copyStageMessageText()}}</div>
                         </span>
                         <span *ngIf="deleteStageConfirmationId==stage.id">
                             <div class="alert alert-danger mt-3" role="alert"><strong>{{ 'activities.are_you_sure_stage' | translate }}</strong> <div><button class="btn btn-danger ms-2" (click)="deleteStage(model.selectedScript, stage); deleteStageConfirmationId=0; showStageHelp=false;">{{ 'activities.button.ok' | translate }}</button> <button class="btn btn-secondary ms-2" (click)="deleteStageConfirmationId=0; showStageHelp=false;">{{ 'activities.button.cancel' | translate }}</button></div></div>
@@ -970,7 +970,7 @@
                                 &nbsp;
                             </div>
                             <div class="col-sm">
-                                <button class="btn btn-success me-3" (click)='stage.questions = stage.questions.concat(initializeNewQuestion())'>{{ 'activities.button.add_new_question' | translate }}</button>
+                                <button class="btn btn-success me-3" (click)='stage.questions = stage.questions.concat(initializeNewQuestion())'>{{ 'activities.button.add_new_question' | translate }}xx</button>
                             </div>
                         </div>
                         

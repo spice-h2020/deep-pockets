@@ -40,7 +40,7 @@ export class ThemeTableComponent {
         }
     }
 
-    includeNavigation: boolean = false;
+    includeNavigation: boolean = true;
 
     isAdmin() {
         return this.currentuser.getUserID() == 1;
@@ -65,10 +65,10 @@ export class ThemeTableComponent {
 
     landingButtonText() {
         if(this.includeNavigation) {
-            return this.limited_menu_text; //"Copy landing page URL with full menu"
+            return this.full_menu_text; //"Copy landing page URL with full menu"
         }
         else {
-            return this.full_menu_text;  //"Copy landing page URL with limited menu";
+            return this.limited_menu_text;  //"Copy landing page URL with limited menu";
         }
     }
 

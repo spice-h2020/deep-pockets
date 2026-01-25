@@ -35,9 +35,13 @@ export class ScriptWizardComponent {
     question_stage_added_translation = '';
     multiquestion_stage_addded_translation = '';
     story_stage_added_translation = '';
+    copy_full_menu_translation = '';
+    copy_limited_menu_translation = '';
+    activity_copied_translation = '';
+    stage_copied_translation = '';
 
     constructor(public currentuser: CurrentUser, public model: Model){
-        this.translate.stream(['activities.button.statement', 'activities.button.question', 'activities.button.multiquestion', 'activities.button.story', 'activities.advice.new_statement_added', 'activities.advice.new_question_stage_added', 'activities.advice.new_multiquestion_stage_added', 'activities.advice.new_story_stage_added']).subscribe(translations => {
+        this.translate.stream(['activities.button.statement', 'activities.button.question', 'activities.button.multiquestion', 'activities.button.story', 'activities.advice.new_statement_added', 'activities.advice.new_question_stage_added', 'activities.advice.new_multiquestion_stage_added', 'activities.advice.new_story_stage_added', 'activities.button.copy_landing_page_url_full', 'activities.button.copy_landing_page_url_limited', 'activities.prompt.activity_copied', 'activities.prompt.stage_copied']).subscribe(translations => {
         this.statement_stage_translation = translations['activities.button.statement'];
         this.question_stage_translation = translations['activities.button.question'];
         this.multiquestion_stage_translation = translations['activities.button.multiquestion'];
@@ -46,6 +50,10 @@ export class ScriptWizardComponent {
         this.question_stage_added_translation = translations['activities.advice.new_question_stage_added'];
         this.multiquestion_stage_addded_translation = translations['activities.advice.new_multiquestion_stage_added'];
         this.story_stage_added_translation= translations['activities.advice.new_story_stage_added'];
+        this.copy_full_menu_translation= translations['activities.button.copy_landing_page_url_full'];
+        this.copy_limited_menu_translation= translations['activities.button.copy_landing_page_url_limited'];
+        this.activity_copied_translation = translations['activities.prompt.activity_copied'];
+        this.stage_copied_translation = translations['activities.prompt.stage_copied'];
         })
     }
 
@@ -71,7 +79,7 @@ export class ScriptWizardComponent {
 
     showCurrentSelection: boolean = false;
 
-    includeNavigation: boolean = false;
+    includeNavigation: boolean = true;
 
     setFacetsOnScriptOpening() {
         this.artistStartList = this.uniqByMap(this.getArtworks(this.model.selectedScript).map(x => x.artist)).map(x => ({text: x}));
@@ -117,19 +125,23 @@ export class ScriptWizardComponent {
 
     copyStageMessage: boolean = false;
 
-    copyStageMessageText: string = "Stage copied below"
+    copyStageMessageText() {
+        return this.stage_copied_translation;
+    }
 
     copiedStage: number = undefined;
 
     copyScriptMessage: boolean = false;
 
-    copyScriptMessageText: string = "Activity copied"
+    copyScriptMessageText() {
+        return this.activity_copied_translation;
+    }
 
     copiedScript: number = undefined;
 
     initializeNewQuestion() {
         let newQuestion = new Question;
-        newQuestion = {type: "question", title: "Question goes here", choice: false, multiselect: false, options: []};
+        newQuestion = {type: "question", title: "Question goes here / Mae'r cwestiwn yn mynd yma", choice: false, multiselect: false, options: []};
         return newQuestion;
     }
 
@@ -146,10 +158,10 @@ export class ScriptWizardComponent {
 
     landingButtonText() {
         if(this.includeNavigation) {
-            return "Copy landing page URL with full menu"
+            return this.copy_full_menu_translation;
         }
         else {
-            return "Copy landing page URL with limited menu";
+            return this.copy_limited_menu_translation;
         }
     }
 
