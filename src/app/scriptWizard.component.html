@@ -3,7 +3,7 @@
 <!-- <p class="lead" *ngIf="viewScript=='0'">Select a script.</p> -->
 <!-- <p class="lead" *ngIf="viewScript!='0'"><strong>Selected script: </strong><span *ngIf="selectedScript.name">{{selectedScript.name}}</span></p> -->
     
-    <div class="container-fluid">
+    <div class="container-fluid ps-0 pe-0 ms-0 me-0">
     <div class="row">
         <div class="col-sm-6">
             <p class="lead">{{ 'activities.para' | translate }}</p>
@@ -74,7 +74,7 @@
 
             <div class="col">&nbsp;</div>
             <div class="col-4" style="min-width: 8em;">
-                <button class="btn btn-success float-end me-1" (click)="addScript(); copyScriptMessage=false;" *ngIf="(!isAdmin() || (isAdmin() && currentUser==1))">{{ 'activities.button.new_activity' | translate }}</button>
+                <button class="btn btn-success float-end" (click)="addScript(); copyScriptMessage=false;" *ngIf="(!isAdmin() || (isAdmin() && currentUser==1))">{{ 'activities.button.new_activity' | translate }}</button>
             </div>
         </div>
     </ng-container>
@@ -970,7 +970,7 @@
                                 &nbsp;
                             </div>
                             <div class="col-sm">
-                                <button class="btn btn-success me-3" (click)='stage.questions = stage.questions.concat(initializeNewQuestion())'>{{ 'activities.button.add_new_question' | translate }}xx</button>
+                                <button class="btn btn-success me-3" (click)='stage.questions = stage.questions.concat(initializeNewQuestion())'>{{ 'activities.button.add_new_question' | translate }}</button>
                             </div>
                         </div>
                         
