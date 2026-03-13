@@ -156,7 +156,7 @@ export class ThemeTableComponent {
     }
 
     reloadThemes() {
-        this.model.refreshThemes();
+        // this.model.refreshThemes();
     }
 
     drop(event: CdkDragDrop<string[]>) {
